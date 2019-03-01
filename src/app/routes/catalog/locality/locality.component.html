@@ -1,0 +1,77 @@
+<div class="content-heading">
+    <div>Administracion de Localidades
+        <small>Lista de Localidades</small></div>
+</div>
+<!-- START table-responsive-->
+<div class="row" *ngIf="department">
+    <div class="col-xl-12">
+        <div class="card card-default">
+            <div class="card-header primary">Localidades de {{ department.name }}</div>
+            <div class="card-body">
+                <button type="button" class="btn btn-sm btn-primary" (click)="departaments();" data-toggle="tooltip" data-placement="top" title="REGRESAR"><i class="fa fa-arrow-circle-left" ></i>  Regresar</button>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOMBRE&nbsp;&nbsp;&nbsp;</th>
+                                <th>FECHA ALTA</th>
+                                <th>MODIFICADO</th>
+                                <th class="right">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(content,0)" data-toggle="tooltip" data-placement="top" title="AÑADIR MAS LOCALIDADES"><i class="fa fa-plus-square" ></i></button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let locality of localities; let i = index ">
+                                <td>{{ locality.id }}</td>
+                                <td>{{ locality.name }}</td>
+                                <td>{{ locality.createdAt | date : 'dd-MM-yyyy' }}</td>
+                                <td>{{ locality.updatedAt | date : 'dd-MM-yyyy' }}</td>
+                                <td>
+                                    <a (click)="editbyid(content,locality.id)" class="btn btn-sm btn-outline-success" data-toggle="tooltip" data-placement="top" title="EDITAR">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a (click)="delete(locality.id)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="ELIMINAR">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Localidad</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <form #localityFormp="ngForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <input type="hidden" name="id" #name="ngModel" [(ngModel)]="locality.id">
+                <input type="hidden" name="department" #name="ngModel" [(ngModel)]="locality.department">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label for="name">Nombre</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="locality.name" placeholder="INGRESE LOCALIDAD" aria-describedby="inputGroupPrepend2" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')">Cerrar</button>
+            <button type="button" class="btn btn-outline-dark" (click)="save(localityFormp);">Guardar</button>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,33 @@
+<p>
+    paging-server works!
+</p>
+<div>
+    <h3>
+        Server-side Paging
+        <small>
+     
+    </small>
+    </h3>
+    <div class="card card-default">
+        <div class="card-header">
+            <div class="card-title">Provicias</div>
+        </div>
+        <div class="card-body">
+            <ngx-datatable class="bootstrap no-detail-row" [rows]="rows" [columns]="[{name:'PROVINCIA', prop: 'name'},{name:'Modificado', prop:'updatedAt'},{name: 'CREADO',prop:'createdAt'}]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+                [externalPaging]="true" [count]="page.totalEntities" [offset]="page.numberPage" [limit]="page.limit" (page)='setPage($event)'>
+                <ngx-datatable-footer>
+                    <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+                        <div style="padding: 5px 10px">
+                            <div>
+                                <strong>Provincia</strong>: Jujuy: Capital
+                            </div>
+                            <hr style="width:100%" />
+                            <div>
+                                total: {{rowCount}} | Size: {{pageSize}} | Current: {{curPage}} | Offset: {{offset}}
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-footer>
+            </ngx-datatable>
+        </div>
+    </div>

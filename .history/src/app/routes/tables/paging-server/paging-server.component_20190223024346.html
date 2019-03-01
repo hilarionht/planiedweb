@@ -1,0 +1,14 @@
+<p>
+    paging-server works!
+</p>
+<div>
+    <h3>
+        Server-side Paging
+        <small>
+     
+    </small>
+    </h3>
+    <ngx-datatable class="bootstrap no-detail-row" [rows]="rows" [columns]="[{name:'PROVICIA', prop: 'name'},{name:'updatedAt'},{name:'createdAt'}]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true"
+        [count]="page.totalEntities" [offset]="page.numberPage" [limit]="page.limit" (page)='setPage($event)'>
+    </ngx-datatable>
+</div>

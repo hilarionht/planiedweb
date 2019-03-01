@@ -1,0 +1,176 @@
+<div class="content-heading">
+    <div>Usuario
+        <small>Gestion la información de Usuario</small></div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <!-- START card-->
+        <div class="card card-default">
+            <div class="card-header">Informacion del Usuario</div>
+            <div class="card-body">
+                <form #userForm="ngForm" (ngSubmit)="addUser(userForm)" class="form-horizontal">
+                    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="user.id">
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label">Username</label>
+                        <div class="col-xl-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="username" #name="ngModel" [(ngModel)]="user.username" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label">Password</label>
+                        <div class="col-xl-10">
+                            <input type="password" class="form-control" minlength="5" name="password" #name="ngModel" [(ngModel)]="user.password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label">Email</label>
+                        <div class="col-xl-10">
+                            <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #name="ngModel" name="email" [(ngModel)]="user.email" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label">Rol</label>
+                        <div class="col-xl-10">
+                            <select class="custom-select  form-control" #role_id="ngModel" name="role" id="role" [(ngModel)]="user.role">
+                                <option value="" selected>Selecciones</option>
+                                <option *ngFor="let rol of roles" [value]="rol.id">
+                                {{ rol.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label">Activo</label>
+                        <div class="col-xl-10">
+                            <div class="checkbox c-checkbox">
+                                <label>
+                  <input type="checkbox" checked="" [(ngModel)]="user.state" #state="ngModel" name="state"/>
+                  <span class="fa fa-check"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label"></label>
+                        <div class="col-xl-10">
+                            <button class="btn btn-sm btn-secondary" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END card-->
+    </div>
+    <div class="col-md-6" style="display: none">
+        <!-- START card-->
+        <div class="card card-default">
+            <div class="card-header">Informacion del Usuario</div>
+            <div class="card-body">
+                <form class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label">Email</label>
+                        <div class="col-xl-10">
+                            <input class="form-control" type="email" placeholder="Email" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label">Password</label>
+                        <div class="col-xl-10">
+                            <input type="password" class="form-control" minlength="5" name="password" #name="ngModel" [(ngModel)]="user.password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label"></label>
+                        <div class="col-xl-10">
+                            <div class="checkbox c-checkbox">
+                                <label>
+                  <input type="checkbox" checked="" />
+                  <span class="fa fa-check"></span>Remember me</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-form-label"></label>
+                        <div class="col-xl-10">
+                            <button class="btn btn-sm btn-secondary" type="submit">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END card-->
+    </div>
+</div>
+<!-- START row-->
+<!-- 
+<div class="card">
+  <div class="card-header">
+    Alta de Usuario
+  </div>
+  <div class="card-body">
+
+    <form #userForm="ngForm" (ngSubmit)="addUser(userForm)" class="form-horizontal">
+      <input type="hidden" name="id" #id="ngModel" [(ngModel)]="user.id">
+      <div class="form-row">
+
+        <div class="col-md-4 mb-3">
+          <label for="validationDefaultUsername">Username</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend2"><i class="fa fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" name="username" #name="ngModel" [(ngModel)]="user.username"
+              placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="validationDefault03">Password</label>
+          <input type="password" class="form-control" minlength="5" name="password" #name="ngModel" [(ngModel)]="user.password"
+            required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #name="ngModel"
+            name="email" [(ngModel)]="user.email" required />
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationDefault04">Estado</label>
+          <input type="text" class="form-control" name="state" #name="ngModel" [(ngModel)]="user.state" placeholder="estado"
+            required>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label">Estado</label>
+          <div class="col-lg-4 col-md-10">
+            <div class="d-flex align-items-center mb-3">
+              <div>Estado</div>
+              <div class="ml-auto">
+                <label class="switch switch-sm m-0">
+                  <input type="checkbox" checked="checked" />
+                  <span></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationDefault05">Rol</label>
+          <input type="text" class="form-control custom-select-sm" name="role_id" #name="ngModel" [(ngModel)]="user.role_id" placeholder="rol" required> -->
+<!-- <select class="custom-select  form-control" name="role_id" id="role_id" [(ngModel)]="user.role_id">
+            <option value="" selected>Selecciones</option>
+            <option *ngFor="let rol of roles" [value]="rol.id">
+              {{ rol.name }}
+            </option>
+          </select>
+        </div>
+
+      </div>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+    </form>
+
+
+  </div>
+</div> -->

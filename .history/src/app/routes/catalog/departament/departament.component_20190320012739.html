@@ -1,0 +1,150 @@
+<div class="content-heading">
+    <div>
+        Administracion de Departamentos <small>Lista de Departamentos</small>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card b">
+            <div class="card-body">
+
+                <hr />
+                <div class='d-flex align-items-center'>
+                    <button type="button" class="ml-auto mr-0 btn btn-sm btn-primary mb-2" (click)="provinces()" data-toggle="tooltip" data-placement="top" title="REGRESAR">
+                            <i class="fa fa-arrow-circle-left"></i> Regresar
+                          </button>
+                    <h3 class='m1-auto mr-1 mb-2'>DEPARTAMENTOS DE {{ province.name}}</h3>
+                    <button class='ml-auto mr-1 btn btn-labeled btn-green mb-2' type='button' (click)='open(content,0)'>
+                <span class='btn-label'> <i class ='fa fa-tasks'> </i> </span>Agregar departamento</button >
+                </div>
+                <input type="text" class="form-control" placeholder="Escriba el nombre del " (keyup)="search($event)" />
+                <ngx-datatable #table class="bootstrap no-detail-row fullscreen table-striped" [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]="departments" [rowHeight]="'auto'" [externalPaging]="false">
+                    <ngx-datatable-column name="ID" prop="id" [width]="50"></ngx-datatable-column>
+                    <ngx-datatable-column name="NOMBRE" prop="name"></ngx-datatable-column>
+                    <ngx-datatable-column name="ACCIONES" sortable="false" prop="id" [width]="100">
+                        <ng-template let-row="provs" let-value="value" ngx-datatable-cell-template>
+                            <button class="btn btn-sm btn-danger" (click)="confirm(pdelete, value)">
+                <i class="fas fa-trash-alt"></i>
+              </button> &nbsp;
+                    <button class="btn btn-sm btn-success" (click)="editbyid(content, value)">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+                    </ng-template>
+                    </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- START table-responsive-->
+    <div class="row" *ngIf="province">
+        <div class="col-xl-12">
+            <div class="card card-default ">
+                <div class="card-header">Departamentos de {{ province.name }}</div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-sm btn-primary" (click)="provinces()" data-toggle="tooltip" data-placement="top" title="REGRESAR">
+          <i class="fa fa-arrow-circle-left"></i> Regresar
+        </button>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE&nbsp;&nbsp;&nbsp;</th>
+                                    <th>FECHA ALTA</th>
+                                    <th>MODIFICADO</th>
+                                    <th class="right">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(content, 0)" data-toggle="tooltip" data-placement="top" title="AÑADIR MAS DEPARTAMENTOS">
+                    <i class="fa fa-plus-square"></i>
+                  </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let department of departments; let i = index">
+                                    <td>{{ department.id }}</td>
+                                    <td>{{ department.name }}</td>
+                                    <td>{{ department.createdAt | date: "dd-MM-yyyy" }}</td>
+                                    <td>{{ department.updatedAt | date: "dd-MM-yyyy" }}</td>
+                                    <td>
+                                        <a (click)="editbyid(content, department.id)" class="btn btn-sm btn-outline-success" data-toggle="tooltip" data-placement="top" title="EDITAR">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a (click)="locality(department.id)" class="btn btn-sm btn-outline-info" data-toggle="tooltip" data-placement="top" title="DETALLE">
+                                            <i class="fa fa-list-alt"></i>
+                                        </a>
+                                        <a (click)="delete(department.id)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="ELIMINAR">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Departamento</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        </div>
+        <form #departmentFormp="ngForm">
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" name="id" #name="ngModel" [(ngModel)]="department.id" />
+                    <input type="hidden" name="province" #name="ngModel" [(ngModel)]="department.province" />
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label for="name">Nombre</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="department.name" placeholder="INGRESE DEPARTAMENTO" aria-describedby="inputGroupPrepend2" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')">
+        Cerrar
+      </button>
+                <button type="button" class="btn btn-outline-dark" (click)="save(departmentFormp)">
+        Guardar
+      </button>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template #pdelete let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-titl">{{ title }} DEPARTAMENTO</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        </div>
+        <form #frmDepartment="ngForm" class="form-horizontal">
+            <div class="modal-body">
+                <input type="hidden" name="id" #id="ngModel" [(ngModel)]="department.id" />
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label">Departamento</label>
+                    <div class="col-xl-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="department.name" placeholder="department" aria-describedby="inputGroupPrepend2" readonly="readonly" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" (click)="modal.close('Close click')">
+        <span class="btn-label"><i class="fa fa-times"></i> </span>Cancelar
+      </button>
+                <button class="mr-1 btn btn-labeled btn-success mb-2" type="button" (click)="delete(pdelete, department.id)">
+        <span class="btn-label"><i class="fa fa-check"></i> </span>Confirmar
+        eliminar
+      </button>
+            </div>
+        </form>
+    </ng-template>

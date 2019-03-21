@@ -1,0 +1,72 @@
+<div class="content-heading">
+    <div>Administracion de Roles
+        <small>Administre roles del sistema</small></div>
+</div>
+<div class="card b ">
+    <div class="card-body">
+        <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+        <div class="row mb-12">
+            <div class="col-lg-4">
+                <input type='text' class="form-control" placeholder='Escriba el nombre del rol' (keyup)='updateFilter($event)' />
+            </div>
+            <div class="col-lg-4">&nbsp;</div>
+            <div class="col-lg-4">
+                <button type="button" class="btn btn-sm btn-success" (click)="open(content,0)" data-toggle="tooltip" data-placement="top" title="AÑADIR UN NUEVO ROL"><i class="fa fa-user-alt" ></i> NUEVO ROL</button>
+            </div>
+        </div>
+        <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalEntities" [offset]="page.numberPage"
+            [limit]="page.limit" (page)='setPage($event)'>
+            <ngx-datatable-column name="Id" prop="id"></ngx-datatable-column>
+            <ngx-datatable-column name="NOMBRE" prop="name"></ngx-datatable-column>
+            <ngx-datatable-column name="Fecha Alta" prop="createdAt" headerClass="is-gender">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date: 'dd/MM/yyyy'}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Modificado" prop="updatedAt">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value | date: 'dd/MM/yyyy'}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Acciones" sortable="false" prop="id" [width]="100">
+                <ng-template let-row="provs" let-value="value" ngx-datatable-cell-template>
+                    <button class="btn btn-sm btn-danger" (click)="deleteRole(value)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    <button class="btn btn-sm btn-success" (click)="editbyid(content,value)">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Rol</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <form #roleFormp="ngForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <input type="hidden" name="id" #name="ngModel" [(ngModel)]="role.id">
+                <div class="form-row">
+
+                    <div class="col-md-12">
+                        <label for="name">Nombre</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="role.name" placeholder="Rol" aria-describedby="inputGroupPrepend2" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.close('Close click')">Cerrar</button>
+            <button type="button" class="btn btn-success" (click)="save(roleFormp);">Guardar</button>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,140 @@
+<div class="content-heading">
+    <div>Usuarios
+        <small>Lista de Usuarios</small></div>
+</div>
+<div class="card card-default">
+    <div class="card-header">Lista de Usuarios</div>
+    <!-- START table-responsive-->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-responsive" id="table-ext-1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>USERNAME</th>
+                    <th>PERFIL</th>
+                    <th>FECHA ALTA</th>
+                    <th>MODIFICADO</th>
+                    <th>EMAIL</th>
+                    <th>ACTIVO</th>
+                    <th>
+                        <button [routerLink]="['/config/user', '0']" type="button" class=" btn btn-outline-success btn-sm">+</button>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" style="display: none" data-toggle="modal" data-target="#userModal">
+                          Launch demo modal
+                      </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let i = index ">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        <div class="media">
+                            <img class="img-fluid circle" src="assets/img/user/01.jpg" alt="Image" />
+                        </div>
+                    </td>
+
+                    <td>{{ user.createdAt | date : 'dd-MM-yyy'}}</td>
+                    <td>{{ user.updatedAt }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <label class="switch">
+                      <input type="checkbox" name="estado" checked="user.state" [(ngModel)]="user.state" disabled="disabled"/>
+                      <span></span>
+                      </label>
+                    </td>
+                    <!-- <td>1 week</td> -->
+                    <!-- <td>
+                      <div class="checkbox c-checkbox">
+                          <label>
+                            <input type="checkbox" />
+                            <span class="fa fa-check"></span>
+                        </label>
+                      </div>
+                  </td> -->
+                    <td>
+                        <button [routerLink]="['/config/user', user.id]" type="button" class="fa fa-edit btn btn-outline-success btn-sm"> </button>
+                        <a (click)="editUser(user)" class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a (click)="deleteUser(user.id)" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- END table-responsive-->
+
+
+    <div class="card b ">
+        <div class="card-body">
+            <div class="row mb-12">
+                <div class="col-lg-4">
+                    <input type='text' class="form-control" placeholder='Escriba el nombre del rol' (keyup)='search($event)' />
+                </div>
+                <div class="col-lg-4">&nbsp;</div>
+                <div class="col-lg-4">
+                    <!-- <button type="button" class="btn btn-sm btn-success" (click)="open(content,0)" data-toggle="tooltip" data-placement="top" title="AÑADIR UN NUEVO ROL"><i class="fa fa-tasks" ></i> NUEVO ROL</button> -->
+                </div>
+            </div>
+            <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalEntities" [offset]="page.numberPage"
+                [limit]="page.limit" (page)='setPage($event)'>
+                <ngx-datatable-column name="Id" prop="id"></ngx-datatable-column>
+                <ngx-datatable-column name="USERNAME" prop="username"></ngx-datatable-column>
+                <ngx-datatable-column name="ALTA" prop="createdAt" headerClass="is-gender">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value | date: 'dd/MM/yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Modificado" prop="updatedAt">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value | date: 'dd/MM/yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="EMAIL" prop="email"></ngx-datatable-column>
+                <ngx-datatable-column name="ACCIONES" sortable="false" prop="id" [width]="100">
+                    <ng-template let-row="provs" let-value="value" ngx-datatable-cell-template>
+                        <button class="btn btn-sm btn-danger" (click)="delete(value)">
+                        <i class="fa fa-trash"></i>
+                      </button>&nbsp;
+                        <button class="btn btn-sm btn-success" (click)="editUser(content,value)">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{ title }} ROL</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <form #roleFormp="ngForm">
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" name="id" #name="ngModel" [(ngModel)]="role.id">
+                    <div class="form-row">
+
+                        <div class="col-md-12">
+                            <label for="name">Nombre</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="role.name" placeholder="Rol" aria-describedby="inputGroupPrepend2" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info" data-dismiss="modal" (click)="modal.close('Close click')">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="save(roleFormp);">Guardar</button>
+            </div>
+        </form>
+    </ng-template>

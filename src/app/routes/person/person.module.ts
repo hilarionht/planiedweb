@@ -7,6 +7,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PersonsComponent } from './persons/persons.component';
 import { LoginGuard } from '../../services/service.index';
 import { EmployeeComponent } from './employee/employee.component';
+import { PhoneComponent } from './phone/phone.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'persons' },
@@ -28,7 +29,8 @@ const routes: Routes = [
   declarations: [
     PersonComponent,
     PersonsComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    PhoneComponent
   ], 
   exports:[
     RouterModule

@@ -1,0 +1,103 @@
+<div class="content-heading">
+    <div>
+        Administracion de Departamentos <small>Lista de Departamentos</small>
+    </div>
+</div>
+<div class="home-container">
+    <div class="jumbotron">
+
+        <div class="row" *ngIf="province">
+            <div class="col-xl-9 col-lg-8 ">
+                <div class="card b">
+                    <div class="card-header">
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn btn-labeled btn-secondary" (click)="provinces()"><span class='btn-label'><i class="fa fa-arrow-left"></i></span>Regresar</button>
+                            <button type="button" class="btn btn-labeled btn-green" (click)="open(content,0)"><span class='btn-label'> <i class ='fa fa-tasks'></i> </span>Agregar</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <input type="text" class="form-control" placeholder="Escriba el nombre del " (keyup)="search($event)" />
+                        <ngx-datatable #table class="bootstrap no-detail-row fullscreen" [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]="departments" [rowHeight]="'auto'" [externalPaging]="false">
+                            <ngx-datatable-column name="ID" prop="id" [width]="50"></ngx-datatable-column>
+                            <ngx-datatable-column name="NOMBRE" prop="name"></ngx-datatable-column>
+                            <ngx-datatable-column name="ACCIONES" sortable="false" prop="id" [width]="100">
+                                <ng-template let-row="provs" let-value="value" ngx-datatable-cell-template>
+                                    <button class="btn btn-sm btn-danger" (click)="confirm(pdelete, value)">
+                <i class="fas fa-trash-alt"></i>
+              </button> &nbsp;
+                                    <button class="btn btn-sm btn-success" (click)="editbyid(content, value)">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- START table-responsive-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Departamento</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <form #departmentFormp="ngForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <input type="hidden" name="id" #name="ngModel" [(ngModel)]="department.id" />
+                <input type="hidden" name="province" #name="ngModel" [(ngModel)]="department.province" />
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label for="name">Nombre</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="department.name" placeholder="INGRESE DEPARTAMENTO" aria-describedby="inputGroupPrepend2" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')">
+        Cerrar
+      </button>
+            <button type="button" class="btn btn-outline-dark" (click)="save(departmentFormp)">
+        Guardar
+      </button>
+        </div>
+    </form>
+</ng-template>
+<ng-template #pdelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-titl">{{ title }} DEPARTAMENTO</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <form #frmDepartment="ngForm" class="form-horizontal">
+        <div class="modal-body">
+            <input type="hidden" name="id" #id="ngModel" [(ngModel)]="department.id" />
+            <div class="form-group row">
+                <label class="col-xl-2 col-form-label">Departamento</label>
+                <div class="col-xl-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="department.name" placeholder="department" aria-describedby="inputGroupPrepend2" readonly="readonly" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" (click)="modal.close('Close click')">
+        <span class="btn-label"><i class="fa fa-times"></i> </span>Cancelar
+      </button>
+            <button class="mr-1 btn btn-labeled btn-success mb-2" type="button" (click)="delete(pdelete, department.id)">
+        <span class="btn-label"><i class="fa fa-check"></i> </span>Confirmar
+        eliminar
+      </button>
+        </div>
+    </form>
+</ng-template>

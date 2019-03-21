@@ -1,0 +1,105 @@
+<div class="content-heading">
+    <div>Administracion de Region
+        <small>Lista de Regiones</small></div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <!-- START card-->
+        <hr/>
+        <input type='text' class='form-control' placeholder='Escriba el nombre del rol' (keyup)='search(event)' />
+        <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]='"force"' [footerHeight]='50' [rowHeight]='"auto"' [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]='true' [count]='page.totalEntities' [offset]='page.numberPage'
+            [limit]='page.limit' (page)='setPage(event)'>
+            <ngx-datatable-column name='Id' prop='id'></ngx-datatable-column>
+            <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
+            <ngx-datatable-column name='Acciones' sortable='false' prop='id' [width]='100'>
+                <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
+                    <button class='btn btn-sm btn-danger' (click)='delete(value)'>
+                <i class='fas fa-trash-alt'></i>
+                </button> &nbsp;
+                    <button class='btn btn-sm btn-success' (click)='editbyid(content,value)'>
+                <i class='fas fa-pencil-alt'></i>
+                </button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+        <div class="card b ">
+            <div class="card-header">Region</div>
+            <div class="card-body">
+                <!-- START table-responsive-->
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NOMBRE &nbsp;&nbsp;&nbsp;</th>
+                                <th>FECHA DE ALTA</th>
+                                <th>MODIFICADO</th>
+                                <th>&nbsp; <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(content,0)" data-toggle="tooltip" data-placement="top" title="AÑADIR MAS PROVINCIAS"><i class="fa fa-plus-square" ></i></button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let region of regions; let i = index ">
+                                <td>{{ region.id }}</td>
+                                <td>{{ region.name }}</td>
+                                <td>{{ region.createdAt | date : 'dd-MM-yyyy' }}</td>
+                                <td>{{ region.updatedAt | date : 'dd-MM-yyyy' }}</td>
+                                <td>
+                                    <a (click)="editbyid(content, region.id)" class="btn btn-sm btn-outline-success" data-toggle="tooltip" data-placement="top" title="EDITAR">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <!-- 
+                                    <a (click)="department(region.id);" class="btn btn-sm btn-outline-info" data-toggle="tooltip" data-placement="top" title="DETALLE">
+                                        <i class="fa fa-list-alt"></i>
+                                    </a> -->
+                                    <!-- <button [routerLink]="['/catalog/department', region.id]" type="button" class="fa fa-edit btn btn-outline-success btn-sm"> </button> -->
+
+                                    <!---->
+                                    <a (click)="delete(region.id)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="ELIMINAR">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END table-responsive-->
+            </div>
+        </div>
+        <!-- END card-->
+    </div>
+
+</div>
+
+<ng-template #content let-modal>
+    <form [formGroup]="formRegion" (ngSubmit)="save($event, formRegion.value)" class="form-validate mb-3" novalidate="">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Region</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body container">
+            <div class="form-group">
+                <input type="hidden" name="id" formControlName="id">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group with-focus" [ngClass]="{ 'has-danger' : formRegion.get('name').valid }">
+                            <label for="name">Nombre</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="name" placeholder="INGRESE REGION" aria-describedby="inputGroupPrepend2" required>
+
+                            </div>
+                            <div *ngIf="formRegion.controls['name'].errors?.required && formRegion.controls['name'].touched" class="text-danger form-control-feedback">El nombre es requerido</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')">Cerrar</button>
+            <button type="submit" class="btn btn-outline-dark" [disabled]="formRegion.invalid">Guardar</button>
+        </div>
+
+    </form>
+</ng-template>

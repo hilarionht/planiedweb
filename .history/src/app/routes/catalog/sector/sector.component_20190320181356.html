@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card b">
+            <div class="card-header">
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-labeled btn-green" (click)="open(content,0)"><span class='btn-label'> <i class ='fa fa-tasks'></i> </span>Agregar</button>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+
+                <div class='d-flex align-items-center'>
+                    <h3 class='m-0'></h3>
+                </div>
+                <hr/>
+                <input type='text' class='form-control' placeholder='Escriba el nombre del sector' (keyup)='search($event)' />
+                <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'">
+                    <ngx-datatable-column name='ID' prop='id' [width]="50"></ngx-datatable-column>
+                    <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
+                    <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='100'>
+                        <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
+                            <button class='btn btn-sm btn-danger' (click)='confirm(pdelete,value)'>
+                        <i class='fas fa-trash-alt'></i>
+                        </button> &nbsp;
+                            <button class='btn btn-sm btn-success' (click)='editbyid(content,value)'>
+                        <i class='fas fa-pencil-alt'></i>
+                        </button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ title }} SECTOR</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <form #frmSector="ngForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <input type="hidden" name="id" #name="ngModel" [(ngModel)]="sector.id">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label for="name">Nombre</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="sector.name" placeholder="Locadlidad" aria-describedby="sector" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" (click)="modal.close('Close click')">Cerrar</button>
+            <button type="button" class="mr-1 btn btn-labeled btn-success mb-2" (click)="save(frmSector, content);"><span class="btn-label"><i class="fa fa-check"></i></span>Guardar</button>
+        </div>
+    </form>
+</ng-template>
+<ng-template #pdelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-titl">{{ title }} SECTOR</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+<span aria-hidden="true">&times;</span>
+</button>
+    </div>
+    <form #frmSectord="ngForm" class="form-horizontal">
+        <div class="modal-body">
+            <input type="hidden" name="id" #name="ngModel" [(ngModel)]="sector.id">
+            <div class="form-group row">
+                <label class="col-xl-2 col-form-label">Sector</label>
+                <div class="col-xl-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="sector.name" placeholder="sector" aria-describedby="inputGroupPrepend2" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" (click)="modal.close('Close click')">
+            <span class="btn-label"><i class="fa fa-times"></i>
+            </span>Cancelar</button>
+            <button class="mr-1 btn btn-labeled btn-success mb-2" type="button" (click)="delete(pdelete, sector.id)">
+            <span class="btn-label"><i class="fa fa-check"></i>
+            </span>Confirmar eliminar</button>
+        </div>
+    </form>
+</ng-template>

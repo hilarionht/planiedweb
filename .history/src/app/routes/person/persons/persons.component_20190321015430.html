@@ -86,11 +86,11 @@
 
             <div class="card-body">
                 <ngx-datatable #lista class='bootstrap no-detail-row' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' (page)='setPage($event)'>
-                    <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
+                    <ngx-datatable-column name="Id" prop="id"></ngx-datatable-column>
                     <ngx-datatable-column name="NOMBRE" prop="person.firstname"></ngx-datatable-column>
                     <ngx-datatable-column name="APELLIDO" prop="person.lastname"></ngx-datatable-column>
                     <ngx-datatable-column name="DNI" prop="person.identityDocument"></ngx-datatable-column>
-                    <ngx-datatable-column name="ACCIONES" sortable="false" prop="id" [width]="100">
+                    <ngx-datatable-column name="Actions" sortable="false" prop="id" [width]="100">
                         <ng-template let-row="provs" let-value="value" ngx-datatable-cell-template>
                             <button class="btn btn-sm btn-danger" (click)="delete(value)">
                                 <i class="fa fa-trash"></i>

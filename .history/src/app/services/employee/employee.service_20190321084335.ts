@@ -55,7 +55,7 @@ export class EmployeeService {
   }
   getById(id: string) {
     let url = URL_SERVICIOS + '/employee/' + id;
-    url += `?filter={"relations":["person","person.locality", "person.locality.department","person.locality.department.province","job"]}`;
+    url += `?filter={"relations":["person","person.locality", "person.locality.department","person.locality.department.province"]}`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} )
                     .map(resp => resp);
   }

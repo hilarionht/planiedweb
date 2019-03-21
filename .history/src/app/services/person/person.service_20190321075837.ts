@@ -31,7 +31,7 @@ export class PersonService {
     return this.http.put( url, person ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`) } )
                 .map( (resp: any) => {
                   // this.toastr.success( resp.nombre, 'person Actualizado!',{ timeOut: 3000,positionClass: 'toast-top-right'});
-                  return resp;
+                  return true;
                 });
 
   }
@@ -43,7 +43,7 @@ export class PersonService {
   }
   getById(id: string) {
     let url = URL_SERVICIOS + '/person/' + id;
-    url += `?filter={"relations":["person","person.locality", "person.locality.department","locality.department.province"]}`;
+    url += `?filter={"relations":["locality", "locality.department","locality.department.province"]}`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} )
                     .map(resp => resp);
   }

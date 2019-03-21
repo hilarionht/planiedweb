@@ -36,8 +36,8 @@ export class PersonComponent implements OnInit, OnDestroy {
   departments: Department[] = [];
   provincs: Province[] = [];
   positions: Position[] = [];
-  loading = false;
-  employeeid = 0;
+  loading= false;
+
 
   constructor(
     public _localityService: LocalityService,
@@ -55,19 +55,17 @@ export class PersonComponent implements OnInit, OnDestroy {
       this.person = new Person(null, null, null, null, null, null, null, null, null, null, null, true, this.id);
       if (this.id !== '0') {
         this.loading = true;
-        this._employeeSerivice.getById(this.id).subscribe((resp: any) => {
-          console.log('data person:   ', resp);
-          this.person = resp.data.person;
-          if (resp.data.person.locality.id) {
-            this.localityId = resp.data.person.locality.id;
-            this.departmentId = resp.data.person.locality.department.id;
-            this.provinceId = resp.data.person.locality.department.province.id;
+        this._employeeSerivice.getById(this.id).subscribe((pers: any) => {
+          console.log('data person:   ', pers);
+          this.person = pers.data[0];
+          if (pers.data[0].locality.id) {
+            this.localityId = pers.data[0].locality.id;
+            this.departmentId = pers.data[0].locality.department.id;
+            this.provinceId = pers.data[0].locality.department.province.id;
             this.person.department = this.departmentId;
             this.person.locality = this.localityId;
             this.person.province = this.provinceId;
-            this.person.job = resp.data.job.id;
             this.loadProvinces();
-            this.loadJobs();
             this.loadDepartment(this.provinceId);
             this.loadLocalities(this.departmentId);
 
@@ -115,19 +113,9 @@ export class PersonComponent implements OnInit, OnDestroy {
         });
     } else {
       this.personService.update(form.value)
-      .subscribe(resp => {
-        if (resp.success) {
-          const employee = new Employee(resp.data.id, form.value.job, this.id); //this.router.navigate(['person/persons']);
-          console.log(employee);
-          this._employeeSerivice.update(employee).subscribe((emp: any) => {
-              console.log('employee',emp);
-              this.resetForm(form);
-              this.router.navigate(['person/persons']);
-          });
-        } else {
-          console.log('Se produjo un error!');
-
-        }
+      .subscribe(res => {
+        this.resetForm(form);
+        this.router.navigate(['person/persons']);
       });
     }
   }

@@ -1,4 +1,4 @@
-
+import { PersonComponent } from './person/person.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
@@ -8,9 +8,7 @@ import { PersonsComponent } from './persons/persons.component';
 import { LoginGuard } from '../../services/service.index';
 import { EmployeeComponent } from './employee/employee.component';
 import { PhoneComponent } from './phone/phone.component';
-import { PersonDeleteComponent } from './person-delete/person-delete.component';
-import { PersonComponent } from './person/person.component';
-
+import { PersonDeleteComponent } from './person-delete/person-delete/person-delete.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'persons' },
@@ -20,6 +18,7 @@ const routes: Routes = [
   // { path: 'tipotelefono', component: TipotelefonosComponent , canActivate: [LoginGuard]},
    { path: 'person/:id', component: PersonComponent , canActivate: [LoginGuard]},
    { path: 'persons', component: PersonsComponent , canActivate: [LoginGuard]}
+  
 ];
 @NgModule({
   imports: [

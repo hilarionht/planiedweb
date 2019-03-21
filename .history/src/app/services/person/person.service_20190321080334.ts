@@ -31,7 +31,7 @@ export class PersonService {
     return this.http.put( url, person ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`) } )
                 .map( (resp: any) => {
                   // this.toastr.success( resp.nombre, 'person Actualizado!',{ timeOut: 3000,positionClass: 'toast-top-right'});
-                  return resp;
+                  return true;
                 });
 
   }

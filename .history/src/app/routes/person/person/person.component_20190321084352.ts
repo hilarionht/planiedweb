@@ -65,7 +65,6 @@ export class PersonComponent implements OnInit, OnDestroy {
             this.person.department = this.departmentId;
             this.person.locality = this.localityId;
             this.person.province = this.provinceId;
-            this.person.job = resp.data.job.id;
             this.loadProvinces();
             this.loadJobs();
             this.loadDepartment(this.provinceId);

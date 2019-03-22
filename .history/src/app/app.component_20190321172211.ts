@@ -2,7 +2,10 @@ import { Component, HostBinding, OnInit, isDevMode } from '@angular/core';
 
 import { SettingsService } from './core/settings/settings.service';
 import { ToasterConfig } from 'angular2-toaster';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { deLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', deLocale);
 
 @Component({
     selector: 'app-root',
@@ -27,15 +30,9 @@ export class AppComponent implements OnInit {
         showCloseButton: true,
         animation: 'fade'
     });
-    bsConfig = {
-        containerClass: 'theme-angle',
-        dateInputFormat: 'DD-MM-YYYY'
-    };
-  locale = 'es';
-    constructor(public settings: SettingsService, private _localeService: BsLocaleService) { }
+    constructor(public settings: SettingsService) { }
 
     ngOnInit() {
-        this._localeService.use('es');
         document.addEventListener('click', e => {
             const target = e.target as HTMLElement;
             if (target.tagName === 'A') e.preventDefault();

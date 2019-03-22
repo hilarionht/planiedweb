@@ -114,6 +114,7 @@ export class PersonComponent implements OnInit, OnDestroy {
           if (resp.success) {
             const employee = new Employee(resp.data.id, form.value.position, null);
             this._employeeSerivice.add(employee).subscribe((emp: any) => {
+                console.log(emp);
                 this.resetForm(form);
                 this.router.navigate(['person/persons']);
             });
@@ -128,7 +129,9 @@ export class PersonComponent implements OnInit, OnDestroy {
       .subscribe(resp => {
         if (resp.success) {
           const employee = new Employee(resp.data.id, form.value.job, this.id); // this.router.navigate(['person/persons']);
+          console.log(employee);
           this._employeeSerivice.update(employee).subscribe((emp: any) => {
+              console.log('employee', emp);
               this.resetForm(form);
               this.router.navigate(['person/persons']);
           });
@@ -168,6 +171,8 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   loadJobs() {
     this._jobsService.list().subscribe((resp: any) => {
+      console.log('positions: ', resp);
+
       this.positions = resp.data;
     });
   }

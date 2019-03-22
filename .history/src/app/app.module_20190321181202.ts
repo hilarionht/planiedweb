@@ -47,7 +47,7 @@ export function getDatepickerConfig(): BsDatepickerConfig {
             }
         })
     ],
-    providers: [],
+    providers: [{ provide: BsDatepickerConfig, useFactory: getDatepickerConfig }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

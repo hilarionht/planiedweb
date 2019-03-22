@@ -104,9 +104,9 @@ export class UserService {
                   this.saveStorage(tokenInfo.id, resp.data.token, tokenInfo.user, tokenInfo.user.role);
                   return true;
                 }
-              }).catch( (err: any) => {
-                console.log('error en login ', err);
-                
+              }).catch( err => {
+                console.log('22', err, user);
+                console.log(resp, 'login......');
                 this.toasterService.pop('warning', 'Error de Accesos', 'usuario o password invalidos');
                 // throw (new Error(err.error.error));
                 return Observable.throw( err );

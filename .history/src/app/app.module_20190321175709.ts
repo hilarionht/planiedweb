@@ -13,9 +13,9 @@ import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
 import { ServiceModule } from './services/service.module';
 import { defineLocale } from 'ngx-bootstrap/chronos';
-import { esLocale } from 'ngx-bootstrap/locale';
+import { deLocale } from 'ngx-bootstrap/locale';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-defineLocale('es', esLocale);
+defineLocale('es', deLocale);
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,7 +47,7 @@ export function getDatepickerConfig(): BsDatepickerConfig {
             }
         })
     ],
-    providers: [],
+    providers: [{ provide: BsDatepickerConfig, useFactory: getDatepickerConfig }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

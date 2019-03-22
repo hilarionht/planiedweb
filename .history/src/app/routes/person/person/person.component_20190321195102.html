@@ -2,18 +2,18 @@
     <div>Información del Empleado
         <small>Complete la Información requerida</small></div>
 </div>
-<div class="card">
-    <tabset [justified]="true" class="ie-fix-flex">
+<div>
+    <tabset [justified]="true">
         <tab heading="DATOS PERSONALES" id="personTab">
 
             <div class="row" *ngIf="!loading">
                 <div class="col-xl-12">
                     <!-- START card-->
-                    <div class=" ">
+                    <div class="card b">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-xl-6">
-                                    <!-- <h3> {{ accion }} DE PERSONA</h3> -->
+                                    <h3> {{ accion }} DE PERSONA</h3>
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="btn-group float-right">
@@ -124,7 +124,7 @@
                                     </div>
                                 </fieldset>
                                 <fieldset>
-                                    <div class="d-flex right">
+                                    <div class="d-flex justify-content-center">
                                         <button class="mr-1 btn btn-labeled btn-success mb-2" type="submit" [disabled]="!formAdd.valid">
                                 <span class="btn-label"><i class="fa fa-check"></i>
                                     </span>Confirmar Guardar</button>
@@ -138,7 +138,7 @@
 
             </div>
         </tab>
-        <tab [disabled]="addperson" heading="INFORMACION DE CONTRATO">Legajo</tab>
+        <tab *ngIf="!addperson" heading="INFORMACION DE CONTRATO">Legajo</tab>
         <tab [disabled]="addperson" heading="INFORMACION LABORAL">Area de Trabajo</tab>
     </tabset>
 </div>

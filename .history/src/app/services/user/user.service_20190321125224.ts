@@ -10,8 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';  // (immportar solo lo que se use)
-import 'rxjs/add/operator/catch';  // (immportar solo lo que se use)
+// import 'rxjs/add/operator/map';  // (immportar solo lo que se use)
+// import 'rxjs/add/operator/catch';  // (immportar solo lo que se use)
 
 import { Router } from '@angular/router';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';

@@ -6,7 +6,7 @@ import { Person } from '../../../models/person.model';
 import { PersonService } from '../../../services/service.index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
 import { Locality } from './../../../models/locality.model';
 import { Department } from '../../../models/departament.model';
 import { Province } from '../../../models/province.model';
@@ -14,11 +14,10 @@ import { ProvinceService } from '../../../services/province/province.service';
 import { Position } from '../../../models/position.model';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeService } from '../../../services/employee/employee.service';
-
 import * as moment from 'moment';
-// import { defineLocale } from 'ngx-bootstrap/chronos';
-// import { esLocale } from 'ngx-bootstrap/locale';
-// defineLocale('es', esLocale);
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
 
 @Component({
   selector: 'app-person',
@@ -39,7 +38,6 @@ export class PersonComponent implements OnInit, OnDestroy {
   provincs: Province[] = [];
   positions: Position[] = [];
   loading = false;
-  addperson = true;
   employeeid = 0;
   bsConfig = {
     containerClass: 'theme-angle',
@@ -54,17 +52,16 @@ export class PersonComponent implements OnInit, OnDestroy {
     public _employeeSerivice: EmployeeService,
     public personService: PersonService,
     public routeActivate: ActivatedRoute,
-    public router: Router,
-    private _localeService: BsLocaleService
+    public router: Router
+
   ) {
-    this._localeService.use('es');
     this.routeActivate.params.subscribe( param => {
       this.id = param['id'];
       this.person = new Person(null, null, null, null, null, null, new Date(), null, null, null, null, true, this.id);
       if (this.id !== '0') {
         this.loading = true;
         this._employeeSerivice.getById(this.id).subscribe((resp: any) => {
-          this.addperson = false;
+          console.log('data person:   ', resp);
           const lperson = resp.data.person;
          // lperson.birthday = this.convertDateToString(resp.data.person.birthday);
           this.person = lperson;
@@ -95,6 +92,7 @@ export class PersonComponent implements OnInit, OnDestroy {
     });
 
 
+    defineLocale('es', esLocale);
    }
 
   ngOnInit() {
@@ -105,7 +103,7 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.departments = null;
     this.provincs = null;
   }
-  save(form?: NgForm) {
+  addPerson(form?: NgForm) {
     if (form.value.id === '0') {
       this.personService.create(form.value)
         .subscribe((resp: any) => {
@@ -114,6 +112,7 @@ export class PersonComponent implements OnInit, OnDestroy {
           if (resp.success) {
             const employee = new Employee(resp.data.id, form.value.position, null);
             this._employeeSerivice.add(employee).subscribe((emp: any) => {
+                console.log(emp);
                 this.resetForm(form);
                 this.router.navigate(['person/persons']);
             });
@@ -128,7 +127,9 @@ export class PersonComponent implements OnInit, OnDestroy {
       .subscribe(resp => {
         if (resp.success) {
           const employee = new Employee(resp.data.id, form.value.job, this.id); // this.router.navigate(['person/persons']);
+          console.log(employee);
           this._employeeSerivice.update(employee).subscribe((emp: any) => {
+              console.log('employee', emp);
               this.resetForm(form);
               this.router.navigate(['person/persons']);
           });
@@ -168,6 +169,8 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   loadJobs() {
     this._jobsService.list().subscribe((resp: any) => {
+      console.log('positions: ', resp);
+
       this.positions = resp.data;
     });
   }

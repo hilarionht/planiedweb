@@ -10,9 +10,9 @@ import { EmployeeComponent } from './employee/employee.component';
 import { PhoneComponent } from './phone/phone.component';
 import { PersonDeleteComponent } from './person-delete/person-delete.component';
 import { PersonComponent } from './person/person.component';
-// import { defineLocale } from 'ngx-bootstrap/chronos';
-// import { esLocale } from 'ngx-bootstrap/locale';
-// defineLocale('es', esLocale); 
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale); 
 
 const routes: Routes = [
   { path: '', redirectTo: 'persons' },

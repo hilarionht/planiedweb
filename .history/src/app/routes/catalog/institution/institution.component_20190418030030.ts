@@ -44,12 +44,12 @@ export class InstitutionComponent implements OnInit {
       createdAt: new FormControl(''),
       updatedAt: new FormControl(''),
       cue: new FormControl(''),
-      registrationNumber: new FormControl('0'),
-      locality: new FormControl(''),
-      region: new FormControl(''),
-      ambit: new FormControl(''),
-      province: new FormControl(''),
-      department : new FormControl('')
+      registrationNumber: new FormControl(''),
+      locality_id: new FormControl(''),
+      region_id: new FormControl(''),
+      ambit_id: new FormControl(''),
+      province_id: new FormControl(''),
+      department_id : new FormControl(''),
     });
     this.page.limit = 10;
   }
@@ -174,8 +174,8 @@ export class InstitutionComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       createdAt: new FormControl(''),
       updatedAt: new FormControl(''),
-      cue: new FormControl('', [Validators.required]),
-      registrationNumber: new FormControl('0'),
+      cue: new FormControl(''),
+      registration_number: new FormControl(''),
       locality: new FormControl(''),
       region: new FormControl(''),
       ambit: new FormControl(''),

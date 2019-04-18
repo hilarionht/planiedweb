@@ -1,31 +1,22 @@
-<div class="d-flex align-items-center">
-    <h3 class="m-0">REGIONES</h3>
-    <button class="ml-auto mr-1 btn btn-labeled btn-green mb-2" type="button" (click)="open(content,null)">
-    <span class="btn-label"> <i class="fa fa-tasks"> </i> </span>Agregar
-    Region
-    </button>
-    <div class="card-body">
-        <input type='text' class='form-control' placeholder='Escriba el nombre del ' (keyup)='search($event)' />
-        <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]='false'>
-            <ngx-datatable-column name='ID' prop='id' [width]="50"></ngx-datatable-column>
-            <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
-            <ngx-datatable-column name='CUE' prop='cue'></ngx-datatable-column>
-            <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='100'>
-                <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
-                    <button class='btn btn-sm btn-danger' (click)='confirm(pdelete,value)'>
-            <i class='fas fa-trash-alt'></i>
-            </button> &nbsp;
-                    <button class='btn btn-sm btn-success' (click)='editbyid(content,value)'>
-            <i class='fas fa-pencil-alt'></i>
-            </button>
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
+<div class="wrapper">
+    <div class="abs-center">
+        <div class="text-center my-3">
+            <h1 class="mb-3">
+                <sup>
+                    <em class="fa fa-cog fa-2x text-muted fa-spin text-info"></em>
+                </sup>
+                <em class="fa fa-cog fa-5x text-muted fa-spin text-purple"></em>
+                <em class="fa fa-cog fa-lg text-muted fa-spin text-success"></em>
+            </h1>
+            <div class="text-bold text-lg mb-3">SITIO EN MANTENIMIENTO</div>
+            <p class="lead m0">Vuelva pronto!</p>
+        </div>
     </div>
 </div>
 
+
 <ng-template #content let-modal>
-    <form [formGroup]="formInst" (ngSubmit)="save($event, formInst.value)" class="form-validate mb-3" novalidate="" *ngIf="!loading">
+    <form [formGroup]="formInst" (ngSubmit)="save($event, formInst.value)" class="form-validate mb-3" novalidate="">
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Institucion</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -50,43 +41,37 @@
                         <div class="form-group whith-focus" [ngClass]="{ 'has-danger': formInst.get('cue').valid }">
                             <label for="name">CUE</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" />
+                                <input type="text" class="form-control" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" required />
                             </div>
                             <div *ngIf="formInst.controls['cue'].errors?.required && formInst.controls['cue'].touched" class="text-danger form-control-feedback">
-                                El CUE es requerido
+                                El nombre es requerido
                             </div>
                         </div>
-
-
-                        <div class="form-group whith-focus">
-                            <label class=" col-form-label">Provincia</label>
+                        <div class="form-group whith-focus" [ngClass]="{ 'has-danger': formInst.get('province').valid }">
+                            <label for="name">PROVINCIA</label>
                             <div class="input-group">
+                                <input type="text" class="form-control" formControlName="cue" placeholder="INGRESE PROVINCIA" aria-describedby="cue" required />
+                            </div>
+                            <div *ngIf="formInst.controls['cue'].errors?.required && formInst.controls['cue'].touched" class="text-danger form-control-feedback">
+                                El nombre es requerido
+                            </div>
+                        </div>
+                        <div class="form-group whith-focus" [ngClass]="{ 'has-danger': formInst.get('cue').valid }">
+                            <label for="name">DEPARTAMENTO</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" required />
+                            </div>
+                            <div *ngIf="formInst.controls['cue'].errors?.required && formInst.controls['cue'].touched" class="text-danger form-control-feedback">
+                                El nombre es requerido
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Provincia</label>
+                            <div class="col-md-10">
 
-                                <select class="custom-select custom-select-sm" formControlName="province" (change)="loadDepartment($event.target.value);">
+                                <select class="custom-select custom-select-sm" formControlName="province">
                                                     <option selected="">Seleccione</option>
                                                     <option *ngFor="let item of provinces" [value]="item.id">{{ item.name }}</option>
-                                                </select>
-
-                            </div>
-                        </div>
-                        <div class="form-group whith-focus">
-                            <label class="col-form-label">Departamento</label>
-                            <div class="input-group">
-
-                                <select class="custom-select custom-select-sm" formControlName="department" (change)="loadLocalities($event.target.value);">
-                                                    <option selected="">Seleccione</option>
-                                                    <option *ngFor="let item of departments" [value]="item.id">{{ item.name }}</option>
-                                                </select>
-
-                            </div>
-                        </div>
-                        <div class="form-group whith-focus">
-                            <label class="col-form-label">Localidad</label>
-                            <div class="input-group">
-
-                                <select class="custom-select custom-select-sm" formControlName="locality">
-                                                    <option selected="">Seleccione</option>
-                                                    <option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</option>
                                                 </select>
 
                             </div>

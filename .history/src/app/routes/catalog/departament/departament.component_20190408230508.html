@@ -10,18 +10,10 @@
             <div class="col-xl-12 col-lg-8 ">
                 <div class="card ">
                     <div class="card-header">
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <h3 *ngIf="department">DEPARTAMENTOS DE {{ province.name | uppercase}} </h3>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="btn-group float-right">
-                                    <button type="button" class="btn btn-labeled btn-secondary" (click)="provinces()"><span class='btn-label'><i class="fa fa-arrow-left"></i></span>Regresar</button>
-                                    <button type="button" class="btn btn-labeled btn-green" (click)="open(content,0)"><span class='btn-label'> <i class ='fa fa-tasks'></i> </span>Agregar</button>
-                                </div>
-                            </div>
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn btn-labeled btn-secondary" (click)="provinces()"><span class='btn-label'><i class="fa fa-arrow-left"></i></span>Regresar</button>
+                            <button type="button" class="btn btn-labeled btn-green" (click)="open(content,0)"><span class='btn-label'> <i class ='fa fa-tasks'></i> </span>Agregar</button>
                         </div>
-
                     </div>
                     <div class="card-body">
                         <input type="text" class="form-control" placeholder="Escriba el nombre del " (keyup)="search($event)" />

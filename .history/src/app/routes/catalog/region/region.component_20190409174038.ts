@@ -47,7 +47,7 @@ export class RegionComponent implements OnInit {
     // tslint:disable-next-line:forin
     for (const c in this.formRegion.controls) {
       this.formRegion.controls[c].markAsTouched();
-      console.log(c, 'controls');
+      console.log(c, 'mascaras controls');
       
     }
     if (this.formRegion.valid) {

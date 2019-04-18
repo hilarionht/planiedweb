@@ -6,7 +6,7 @@
     </button>
     <div class="card-body">
         <input type='text' class='form-control' placeholder='Escriba el nombre del ' (keyup)='search($event)' />
-        <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]='false'>
+        <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='localities' [rowHeight]="'auto'" [externalPaging]='false'>
             <ngx-datatable-column name='ID' prop='id' [width]="50"></ngx-datatable-column>
             <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
             <ngx-datatable-column name='CUE' prop='cue'></ngx-datatable-column>
@@ -25,7 +25,7 @@
 </div>
 
 <ng-template #content let-modal>
-    <form [formGroup]="formInst" (ngSubmit)="save($event, formInst.value)" class="form-validate mb-3" novalidate="" *ngIf="!loading">
+    <form [formGroup]="formInst" (ngSubmit)="save($event, formInst.value)" class="form-validate mb-3" novalidate="">
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Institucion</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -50,7 +50,7 @@
                         <div class="form-group whith-focus" [ngClass]="{ 'has-danger': formInst.get('cue').valid }">
                             <label for="name">CUE</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" />
+                                <input type="text" class="form-control" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" required />
                             </div>
                             <div *ngIf="formInst.controls['cue'].errors?.required && formInst.controls['cue'].touched" class="text-danger form-control-feedback">
                                 El CUE es requerido
@@ -62,7 +62,7 @@
                             <label class=" col-form-label">Provincia</label>
                             <div class="input-group">
 
-                                <select class="custom-select custom-select-sm" formControlName="province" (change)="loadDepartment($event.target.value);">
+                                <select class="custom-select custom-select-sm" formControlName="province">
                                                     <option selected="">Seleccione</option>
                                                     <option *ngFor="let item of provinces" [value]="item.id">{{ item.name }}</option>
                                                 </select>
@@ -73,7 +73,7 @@
                             <label class="col-form-label">Departamento</label>
                             <div class="input-group">
 
-                                <select class="custom-select custom-select-sm" formControlName="department" (change)="loadLocalities($event.target.value);">
+                                <select class="custom-select custom-select-sm" formControlName="province">
                                                     <option selected="">Seleccione</option>
                                                     <option *ngFor="let item of departments" [value]="item.id">{{ item.name }}</option>
                                                 </select>
@@ -84,7 +84,7 @@
                             <label class="col-form-label">Localidad</label>
                             <div class="input-group">
 
-                                <select class="custom-select custom-select-sm" formControlName="locality">
+                                <select class="custom-select custom-select-sm" formControlName="province">
                                                     <option selected="">Seleccione</option>
                                                     <option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</option>
                                                 </select>

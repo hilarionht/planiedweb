@@ -63,8 +63,8 @@ export class InstitutionService {
 
   }
   list( page?: Page, id?: string ) {
-    const url = URL_SERVICIOS + '/institution/'; // ?desde=' + desde;
-    // url += `?filter={"where":{"id":${ id }}}`;
+    let url = URL_SERVICIOS + '/institution/'; // ?desde=' + desde;
+    url += `?filter={"relations":["ambit","sector","region","locality", "locality.department","locality.department.province"]}`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }
 

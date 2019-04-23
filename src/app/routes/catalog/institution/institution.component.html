@@ -12,6 +12,13 @@
                     <ngx-datatable-column name='ID' prop='id' [width]="50"></ngx-datatable-column>
                     <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
                     <ngx-datatable-column name='CUE' prop='cue'></ngx-datatable-column>
+                    <ngx-datatable-column name='REGION' prop='region.name'>
+                        <ng-template let-row="regin" let-value='value' ngx-datatable-cell-template>
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name='SECTOR' prop='sector.name'></ngx-datatable-column>
+                    <ngx-datatable-column name='AMBITO' prop='ambit.name'></ngx-datatable-column>
                     <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='100'>
                         <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
                             <button class='btn btn-sm btn-danger' (click)='confirm(pdelete,value)'>

@@ -1,8 +1,9 @@
 import { Institution } from './../../../models/institution.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
 import { Page } from '../../../models/Page';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { InstitutionService,
+import {
+  InstitutionService,
   ProvinceService,
   DepartamentService,
   LocalityService,
@@ -17,7 +18,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-institution',
   templateUrl: './institution.component.html',
-  styleUrls: ['./institution.component.scss']
+  styleUrls: ['./institution.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class InstitutionComponent implements OnInit {
   page = new Page();
@@ -87,6 +89,8 @@ export class InstitutionComponent implements OnInit {
   setPage(pageInfo) {
     this.page.numberPage = pageInfo.offset + 1;
     this._initutionService.list(this.page).subscribe((resp: any) => {
+      console.log(resp, 'datasetpage');
+      
       this.rows = resp.data;
       this.temp = resp.data;
       this.loading = false;

@@ -39,20 +39,20 @@ export class SectorComponent implements OnInit {
     });
   }
   confirm(pdelete, id: any) {
-  this.title = 'ELIMINAR';
-  this.sector = new Sector(null, '0', null, null);
-  if (id) {
-    this.sectorService.get(id).subscribe((resp: any) => {this.sector = resp.data; });
-  }
-  this.modalService.open(pdelete, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then(() => {
-  }, () => {
-  });
-  }
-  delete(pdelete, id: string) {
-  this.sectorService.delete(id).subscribe((resp: any) => {
-  this.setPage({ offset: 0 });
-  });
-  this.modalService.dismissAll(pdelete);
+    this.title = 'ELIMINAR';
+    this.sector = new Sector(null, '0', null, null);
+    if (id) {
+      this.sectorService.get(id).subscribe((resp: any) => {this.sector = resp.data; });
+    }
+    this.modalService.open(pdelete, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then(() => {
+    }, () => {
+    });
+    }
+    delete(pdelete, id: string) {
+    this.sectorService.delete(id).subscribe((resp: any) => {
+    this.setPage({ offset: 0 });
+    });
+    this.modalService.dismissAll(pdelete);
   }
   setPage(pageInfo) {
     this.page.numberPage = pageInfo.offset + 1;

@@ -58,4 +58,8 @@ export class AmbitService {
     const url = URL_SERVICIOS + `/ambit/?paginate={"limit": ${ page.limit } ,"numberPage": ${  page.numberPage } }&isPaginate=true`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }
+  getAll() {
+    const url = URL_SERVICIOS + '/ambit';
+    return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
+  }
 }

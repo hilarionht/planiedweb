@@ -18,5 +18,6 @@ export { SharedService } from './shared/shared.service';
 export { PersonService } from './person/person.service';
 export { RoleService } from './role/role.service';
 export { UserService } from './user/user.service';
+export { AmbitService } from './ambit/ambit.service';
 
 

@@ -74,7 +74,7 @@ export class DepartamentService {
 
   }
   
-  list( desde: number = 0 ) {
+  list() {
     let url = URL_SERVICIOS + '/department';//?desde=' + desde;
     return this.http.get( url, { headers:new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }

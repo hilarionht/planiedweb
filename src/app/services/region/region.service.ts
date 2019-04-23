@@ -69,10 +69,10 @@ export class RegionService {
                 });
 
   }
-  // list( desde: number = 0 ) {
-  //   let url = URL_SERVICIOS + '/region';//?desde=' + desde;
-  //   return this.http.get( url, { headers:new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
-  // }
+  getAll() {
+    const url = URL_SERVICIOS + '/region';
+    return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
+  }
   list( page: Page ) {
     // const url = URL_SERVICIOS + '/region/?paginate={"limit":' + page.limit + ',"numberPage":' + page.numberPage + '}&isPaginate=true';
     // return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
@@ -80,6 +80,5 @@ export class RegionService {
     const url = URL_SERVICIOS + `/region/?paginate={"limit": ${ page.limit } ,"numberPage": ${  page.numberPage } }&isPaginate=true`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
       // let url = URL_SERVICIOS + '/province/?paginate={"limit":' + page.limit + ',"numberPage":' + page.numberPage + '}&isPaginate=true'; // ?desde=' + desde;
-    
   }
 }

@@ -1,26 +1,30 @@
-<div class="d-flex align-items-center">
-    <h3 class="m-0">REGIONES</h3>
-    <button class="ml-auto mr-1 btn btn-labeled btn-green mb-2" type="button" (click)="open(content,null)">
-    <span class="btn-label"> <i class="fa fa-tasks"> </i> </span>Agregar
-    Region
-    </button>
-    <div class="card-body">
-        <input type='text' class='form-control' placeholder='Escriba el nombre del ' (keyup)='search($event)' />
-        <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]='false'>
-            <ngx-datatable-column name='ID' prop='id' [width]="50"></ngx-datatable-column>
-            <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
-            <ngx-datatable-column name='CUE' prop='cue'></ngx-datatable-column>
-            <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='100'>
-                <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
-                    <button class='btn btn-sm btn-danger' (click)='confirm(pdelete,value)'>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card b">
+            <div class="card-header">
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-labeled btn-green" (click)="open(content,null)"><span class='btn-label'> <i class ='fa fa-tasks'></i> </span>Agregar</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <input type='text' class='form-control' placeholder='Escriba el nombre del ' (keyup)='search($event)' />
+                <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]='false'>
+                    <ngx-datatable-column name='ID' prop='id' [width]="50"></ngx-datatable-column>
+                    <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
+                    <ngx-datatable-column name='CUE' prop='cue'></ngx-datatable-column>
+                    <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='100'>
+                        <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
+                            <button class='btn btn-sm btn-danger' (click)='confirm(pdelete,value)'>
             <i class='fas fa-trash-alt'></i>
             </button> &nbsp;
-                    <button class='btn btn-sm btn-success' (click)='editbyid(content,value)'>
+                            <button class='btn btn-sm btn-success' (click)='editbyid(content,value)'>
             <i class='fas fa-pencil-alt'></i>
             </button>
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -91,17 +95,48 @@
 
                             </div>
                         </div>
+                        <div class="form-group whith-focus">
+                            <label class="col-form-label">Ambito</label>
+                            <div class="input-group">
+
+                                <select class="custom-select custom-select-sm" formControlName="ambit">
+                                                    <option selected="" >Seleccione</option>
+                                                    <option *ngFor="let item of ambits" [value]="item.id">{{ item.name }}</option>
+                                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group whith-focus">
+                            <label class="col-form-label">Sector</label>
+                            <div class="input-group">
+
+                                <select class="custom-select custom-select-sm" formControlName="sector">
+                                                    <option selected="">Seleccione</option>
+                                                    <option *ngFor="let item of sectors" [value]="item.id">{{ item.name }}</option>
+                                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group whith-focus">
+                            <label class="col-form-label">Region</label>
+                            <div class="input-group">
+
+                                <select class="custom-select custom-select-sm" formControlName="region">
+                                                    <option selected="">Seleccione</option>
+                                                    <option *ngFor="let item of regions" [value]="item.id">{{ item.name }}</option>
+                                                </select>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')">
-        Cerrar
-      </button>
-            <button type="submit" class="btn btn-outline-dark" [disabled]="formInst.invalid">
-        Guardar
-      </button>
+            <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" (click)="modal.close('Close click')">
+            <span class="btn-label"><i class="fa fa-times"></i>
+            </span>Cerrar</button>
+            <button type="submit" class="mr-1 btn btn-labeled btn-success mb-2"><span class="btn-label"><i class="fa fa-check"></i></span>Guardar</button>
         </div>
     </form>
 </ng-template>

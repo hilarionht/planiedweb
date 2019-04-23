@@ -116,6 +116,15 @@ export class InstitutionComponent implements OnInit {
         .subscribe((resp: any) => {
           this.institution = resp.data;
           const dataForm = resp.data; console.log(dataForm, 'get data by id' );
+          this._localityService.listbyDepartment(dataForm.locality.department.id).subscribe((response: any) => {
+            this.localities = response.data[0].localities;
+          });
+          this._depService.listbyProvince(dataForm.locality.department.province.id).subscribe((response: any) => {
+            this.departments = response.data[0].departments;
+          });
+          this._provService.list().subscribe((response: any) => {
+            this.provinces = response.data;
+          });
           this.formInst.setValue({
             id : dataForm.id,
             name: dataForm.name,
@@ -123,12 +132,12 @@ export class InstitutionComponent implements OnInit {
             updatedAt: dataForm.updatedAt,
             cue: dataForm.cue,
             registrationNumber: dataForm.registrationNumber,
-            locality: dataForm.locality === undefined ? null : dataForm.locality.id,
-            region: dataForm.region === undefined ? null : dataForm.region.id,
-            ambit: dataForm.ambit === undefined ? null : dataForm.ambit.id,
-            sector: dataForm.sector === undefined ? null : dataForm.sector.id,
-            province: dataForm.province === undefined ? null : dataForm.province.id,
-            department: dataForm.department === undefined ? null : dataForm.department.id,
+            region: dataForm.region === null ? null : dataForm.region.id,
+            ambit: dataForm.ambit === null ? null : dataForm.ambit.id,
+            sector: dataForm.sector === null ? null : dataForm.sector.id,
+            locality: dataForm.locality === null ? null : dataForm.locality.id,
+            department: dataForm.locality.department === null ? null : dataForm.locality.department.id,
+            province: dataForm.locality.department.province === null ? null : dataForm.locality.department.province.id
           });
           this.loading = false;
         });

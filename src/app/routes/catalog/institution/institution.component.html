@@ -15,11 +15,11 @@
                     <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='100'>
                         <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
                             <button class='btn btn-sm btn-danger' (click)='confirm(pdelete,value)'>
-            <i class='fas fa-trash-alt'></i>
-            </button> &nbsp;
+                            <i class='fas fa-trash-alt'></i>
+                            </button> &nbsp;
                             <button class='btn btn-sm btn-success' (click)='editbyid(content,value)'>
-            <i class='fas fa-pencil-alt'></i>
-            </button>
+                            <i class='fas fa-pencil-alt'></i>
+                            </button>
                         </ng-template>
                     </ngx-datatable-column>
                 </ngx-datatable>
@@ -44,7 +44,7 @@
                         <div class="form-group with-focus" [ngClass]="{ 'has-danger': formInst.get('name').valid }">
                             <label for="name">Nombre</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" formControlName="name" placeholder="INGRESE INSTITUCION" aria-describedby="inputGroupPrepend2" required />
+                                <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" formControlName="name" placeholder="INGRESE INSTITUCION" aria-describedby="inputGroupPrepend2" required />
                             </div>
                             <div *ngIf="formInst.controls['name'].errors?.required && formInst.controls['name'].touched" class="text-danger form-control-feedback">
                                 El nombre es requerido
@@ -54,7 +54,7 @@
                         <div class="form-group whith-focus" [ngClass]="{ 'has-danger': formInst.get('cue').valid }">
                             <label for="name">CUE</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" />
+                                <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" />
                             </div>
                             <div *ngIf="formInst.controls['cue'].errors?.required && formInst.controls['cue'].touched" class="text-danger form-control-feedback">
                                 El CUE es requerido

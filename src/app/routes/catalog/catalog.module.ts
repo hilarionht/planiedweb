@@ -12,11 +12,13 @@ import { LoginGuard } from '../../services/service.index';
 import { SharedModule } from '../../shared/shared.module';
 import { Ng2TableModule } from 'ng2-table';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxSelectModule } from 'ngx-select-ex';
 import { DepartamentComponent } from './departament/departament.component';
 import { LocalityComponent } from './locality/locality.component';
 import { ToasterService } from 'angular2-toaster';
 import { PhoneTypeComponent } from './phone-type/phone-type.component';
 import { PhoneReferenceComponent } from './phone-reference/phone-reference.component';
+import { TagInputModule } from 'ngx-chips';
 
 const routes: Routes = [
   { path: '', redirectTo: 'catalog' },
@@ -36,8 +38,10 @@ const routes: Routes = [
   imports: [
     SharedModule,
     RouterModule.forChild(routes),
+    NgxSelectModule,
     Ng2TableModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    TagInputModule
   ],
   declarations: [
     ProvinceComponent,

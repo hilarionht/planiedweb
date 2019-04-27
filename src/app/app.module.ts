@@ -6,6 +6,8 @@ import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
+import { NgxSelectModule } from 'ngx-select-ex';
+
 
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
@@ -39,6 +41,7 @@ export function getDatepickerConfig(): BsDatepickerConfig {
         RoutesModule,
         ServiceModule,
         NgbModule,
+        NgxSelectModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

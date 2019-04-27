@@ -13,8 +13,7 @@ import {
 } from '../../../services/service.index';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 @Component({
   selector: 'app-institution',
   templateUrl: './institution.component.html',
@@ -58,14 +57,14 @@ export class InstitutionComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       createdAt: new FormControl(''),
       updatedAt: new FormControl(''),
-      cue: new FormControl(''),
+      cue: new FormControl('', [Validators.required]),
       registrationNumber: new FormControl('0'),
-      locality: new FormControl(''),
-      region: new FormControl(''),
-      ambit: new FormControl(''),
-      sector: new FormControl(''),
-      province: new FormControl(''),
-      department : new FormControl('')
+      locality: new FormControl('', [Validators.required]),
+      region: new FormControl('', [Validators.required]),
+      ambit: new FormControl('', [Validators.required]),
+      sector: new FormControl('', [Validators.required]),
+      province: new FormControl('', [Validators.required]),
+      department : new FormControl('', [Validators.required])
     });
     this.page.limit = 10;
   }
@@ -90,7 +89,6 @@ export class InstitutionComponent implements OnInit {
     this.page.numberPage = pageInfo.offset + 1;
     this._initutionService.list(this.page).subscribe((resp: any) => {
       console.log(resp, 'datasetpage');
-      
       this.rows = resp.data;
       this.temp = resp.data;
       this.loading = false;
@@ -107,12 +105,12 @@ export class InstitutionComponent implements OnInit {
       updatedAt: new FormControl(''),
       cue: new FormControl('', [Validators.required]),
       registrationNumber: new FormControl(''),
-      locality: new FormControl(''),
-      region: new FormControl(''),
-      ambit: new FormControl(''),
-      sector: new FormControl(''),
-      province: new FormControl(''),
-      department : new FormControl('')
+      locality: new FormControl('', [Validators.required]),
+      region: new FormControl('', [Validators.required]),
+      ambit: new FormControl('', [Validators.required]),
+      sector: new FormControl('', [Validators.required]),
+      province: new FormControl('', [Validators.required]),
+      department : new FormControl('', [Validators.required])
     });
     if (id) {
       this._initutionService
@@ -161,7 +159,6 @@ export class InstitutionComponent implements OnInit {
     }
     if (this.formInst.valid) {
       console.log(this.formInst.value, 'form save');
-      
       if (this.formInst.value.id === '0') {
         this._initutionService.create(this.formInst.value).subscribe(resp => {
           this.setPage({offset: 0 });
@@ -177,6 +174,8 @@ export class InstitutionComponent implements OnInit {
     }
   }
   loadDepartment(id: string) {
+    console.log(id);
+    
     this._depService.listbyProvince(id).subscribe((resp: any) => {
       this.departments = resp.data[0].departments;
     });
@@ -194,12 +193,13 @@ export class InstitutionComponent implements OnInit {
       updatedAt: new FormControl(''),
       cue: new FormControl('', [Validators.required]),
       registrationNumber: new FormControl('0'),
-      locality: new FormControl(''),
-      region: new FormControl(''),
-      ambit: new FormControl(''),
-      sector: new FormControl(''),
-      province: new FormControl(''),
-      department : new FormControl('')
+      locality: new FormControl('', [Validators.required]),
+      region: new FormControl('', [Validators.required]),
+      ambit: new FormControl('', [Validators.required]),
+      sector: new FormControl('', [Validators.required]),
+      province: new FormControl('', [Validators.required]),
+      department : new FormControl('', [Validators.required]),
+      telefonos: new FormArray([])
     });
     if (id) {
       this._initutionService

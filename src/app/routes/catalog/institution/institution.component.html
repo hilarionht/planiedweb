@@ -68,8 +68,7 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group whith-focus">
+                        <!-- <div class="form-group whith-focus" [ngClass]="{ 'has-danger': formInst.get('province').valid }">
                             <label class=" col-form-label">Provincia</label>
                             <div class="input-group">
 
@@ -79,27 +78,29 @@
                                                 </select>
 
                             </div>
-                        </div>
-                        <div class="form-group whith-focus">
-                            <label class="col-form-label">Departamento</label>
-                            <div class="input-group">
-
-                                <select class="custom-select custom-select-sm" formControlName="department" (change)="loadLocalities($event.target.value);">
-                                                    <option selected="">Seleccione</option>
-                                                    <option *ngFor="let item of departments" [value]="item.id">{{ item.name }}</option>
-                                                </select>
-
+                        </div> -->
+                        <div class="form-group row mb " [ngClass]="{ 'has-danger': formInst.get('province').valid }">
+                            <label class="mt">Provincia</label>
+                            <div class="col-md-12">
+                                <ngx-select [allowClear]="true" [items]="provinces" optionValueField="id" optionTextField="name" [disabled]="disabled" (select)="loadDepartment($event);" (removed)="removed($event)" placeholder="Seleccion Provincia">
+                                </ngx-select>
+                                <div class="text-danger" *ngIf="formInst.controls['province'].hasError('required') && (formInst.controls['province'].dirty || formInst.controls['province'].touched)">Este campo es requerido</div>
                             </div>
                         </div>
-                        <div class="form-group whith-focus">
+                        <div class="form-group row mb whith-focus">
+                            <label class="col-form-label">Departamento</label>
+                            <div class="col-md-12">
+                                <ngx-select [allowClear]="true" [items]="departments" optionValueField="id" optionTextField="name" [disabled]="disabled" (select)="loadLocalities($event);" (removed)="removed($event)" placeholder="Seleccion Departamento">
+                                </ngx-select>
+                                <div class="text-danger" *ngIf="formInst.controls['department'].hasError('required') && (formInst.controls['department'].dirty || formInst.controls['department'].touched)">Este campo es requerido</div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb whith-focus">
                             <label class="col-form-label">Localidad</label>
-                            <div class="input-group">
-
-                                <select class="custom-select custom-select-sm" formControlName="locality">
-                                                    <option selected="">Seleccione</option>
-                                                    <option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</option>
-                                                </select>
-
+                            <div class="col-md-12">
+                                <ngx-select [allowClear]="true" [items]="localities" optionValueField="id" optionTextField="name" [disabled]="disabled" (removed)="removed($event)" placeholder="Seleccion Localidad">
+                                </ngx-select>
+                                <div class="text-danger" *ngIf="formInst.controls['locality'].hasError('required') && (formInst.controls['locality'].dirty || formInst.controls['locality'].touched)">Este campo es requerido</div>
                             </div>
                         </div>
                         <div class="form-group whith-focus">
@@ -135,6 +136,21 @@
 
                             </div>
                         </div>
+                        <div class="form-group whith-focus">
+                            <label class="col-form-label">Telefonos</label>
+                            <div class="input-group" formArrayName="telefonos">
+                                <input type="text" formControlName="0">
+                            </div>
+                        </div>
+                        <fieldset>
+                            <div class="form-group whith-focus">
+
+                                <div class="mb-2">
+                                    <label class="mt-lg">Telefonos</label>
+                                    <tag-input theme='minimal' name="tagName2" [ngModel]="" arial-label="agregar un nuevo telefono" table-index placeholder="Inserte un nuevo telefono"></tag-input>
+                                </div>
+                            </div>
+                        </fieldset>
                     </div>
                 </div>
             </div>

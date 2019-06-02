@@ -55,7 +55,7 @@
                     <div class="col-md-12">
                         <label for="name">Nombre</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="locality.name" placeholder="Locadlidad" aria-describedby="locality" required>
+                            <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" name="name" #name="ngModel" [(ngModel)]="locality.name" placeholder="Locadlidad" aria-describedby="locality" required>
                         </div>
                     </div>
                 </div>

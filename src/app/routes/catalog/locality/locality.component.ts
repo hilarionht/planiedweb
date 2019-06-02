@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {
   LocalityService,
-  DepartamentService,
+  DepartmentService,
   ProvinceService
 } from '../../../services/service.index';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -31,7 +31,7 @@ export class LocalityComponent implements OnInit {
   department: Department;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   constructor(
-    public _depService: DepartamentService,
+    public _depService: DepartmentService,
     public _provService: ProvinceService,
     public _localityService: LocalityService,
     public routeActivate: ActivatedRoute,

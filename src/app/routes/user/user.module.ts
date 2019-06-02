@@ -11,7 +11,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { LoginGuard } from '../../services/service.index';
-
+import { NgxSelectModule } from 'ngx-select-ex';
 const routes: Routes = [
   { path: '', redirectTo: 'config' },
   { path: 'user/:id', component: UserComponent, canActivate: [LoginGuard] },
@@ -25,6 +25,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     // NgbModule,
+    NgxSelectModule,
     Ng2TableModule,
     NgxDatatableModule
   ],

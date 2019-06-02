@@ -4,6 +4,7 @@ import { URL_SERVICIOS } from '../../config/config';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
 
 @Injectable()
 export class PersonService {
@@ -11,13 +12,14 @@ export class PersonService {
   person: Person;
   constructor(
     public http: HttpClient,
-    public router: Router
+    public router: Router,
+    public toasterService: ToasterService
   ) { }
   create( person: Person ) {
     const url = URL_SERVICIOS + '/person/';
     return this.http.post(url, person ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)})
       .map((resp: any) => {
-        // this.toastr.success( person.firstname + ' ' + person.lasname , 'personaExitosa!',{ timeOut: 3000,positionClass: 'toast-top-right'});
+        this.toasterService.pop('success', 'Guardar Persona', 'Guardado Exitosamente');
         return resp;
       }).catch( err => {
         // console.log( err.error.message);

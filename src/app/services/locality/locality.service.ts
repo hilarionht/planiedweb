@@ -70,7 +70,7 @@ export class LocalityService {
   // }
   listbyDepartment( id: string ) {
     let url = URL_SERVICIOS + '/department/'; // ?desde=' + desde;
-    url += `?filter={"where":{"id":${ id }},"relations":["localities"]}`;
+    url += `?filter={"where":[{"id":${ id }}],"relations":["localities"]}`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }
 }

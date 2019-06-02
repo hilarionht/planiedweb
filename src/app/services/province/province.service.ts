@@ -30,7 +30,7 @@ export class ProvinceService {
         //this.toastr.success( 'Provincia ' + province.name  + " fue creado con exito!", "CREACION DE PROVINCIA" ,{ enableHtml:true, timeOut: 3000,positionClass: 'toast-top-right'});
         return res.province;
       }).catch( err => {
-        console.log('in create', err.error.message);
+        // console.log('in create', err.error.message);
         let errorcause = err.error.message;
         if(errorcause.indexOf('Ya existe la llave')){
           //this.toastr.error( "NO SE PUEDE CREAR UN PROVINCIA CON EL NOMBRE: " + province.name.toUpperCase() + " YA EXISTENTE" , 'CREACION DE PROVINCIA',{ timeOut: 3000,positionClass: 'toast-top-right',closeButton:true});

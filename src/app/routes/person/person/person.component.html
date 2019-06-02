@@ -24,12 +24,13 @@
                         </div>
                         <div class="card-body">
                             <form class="form-validate form-horizontal" #formAdd="ngForm" (ngSubmit)="save(formAdd)">
-                                <input type="hidden" name="id" #name="ngModel" [(ngModel)]="person.id">
+                                <input type="hidden" name="id" #name="ngModel" [(ngModel)]="id">
+                                <input type="hidden" name="personId" #name="ngModel" [(ngModel)]="person.id">
                                 <input type="hidden" name="state" #name="ngModel" [(ngModel)]="person.state">
                                 <div class="form-group row" [ngClass]="{'has-danger': (firstname.errors?.required || firstname.errors?.minlength )&& lastname.touched }">
                                     <label class="col-xl-2 col-form-label">Nombre</label>
                                     <div class="col-xl-10">
-                                        <input class="form-control" type="text" placeholder="Nombre" minlength="3" name="lastname" #lastname="ngModel" [ngModel]="person.lastname" required/>
+                                        <input class="form-control" type="text" oninput="this.value = this.value.toUpperCase()" placeholder="Nombre" minlength="3" name="lastname" #lastname="ngModel" [ngModel]="person.lastname" required/>
                                         <div class="form-control-feedback" *ngIf="lastname.errors?.required && lastname.touched">el campo es requerido</div>
                                         <div class="form-control-feedback" *ngIf="lastname.errors?.minlength && lastname.touched ">el campo requiere por lo menos 5 caracteres</div>
                                     </div>
@@ -37,7 +38,7 @@
                                 <div class="form-group row">
                                     <label class="col-xl-2 col-form-label">Apellido</label>
                                     <div class="col-xl-10">
-                                        <input class="form-control" type="text" placeholder="Apellido" minlength="3" name="firstname" #firstname="ngModel" [ngModel]="person.firstname" required/>
+                                        <input class="form-control" type="text" oninput="this.value = this.value.toUpperCase()" placeholder="Apellido" minlength="3" name="firstname" #firstname="ngModel" [ngModel]="person.firstname" required/>
                                         <div *ngIf="firstname.errors?.required && firstname.touched">el campo es requerido</div>
                                         <div *ngIf="firstname.errors?.minlength && firstname.touched">el campo requiere por lo menos 5 caracteres</div>
                                     </div>
@@ -78,7 +79,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label">Povincia</label>
                                         <div class="col-md-10">
-                                            <select class="custom-select custom-select-sm" name="province" [(ngModel)]="person.province" #province="ngModel" (change)="loadDepartment(person.province);">
+                                            <select class="custom-select custom-select-sm" name="provinceId" [(ngModel)]="person.provinceId" (change)="loadDepartment(person.provinceId);">
                                                     <option selected="">Seleccione</option>
                                                     <option *ngFor="let item of provincs" [value]="item.id">{{ item.name }}</option>
                                               
@@ -90,7 +91,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label">Departamento</label>
                                         <div class="col-md-10">
-                                            <select class="custom-select custom-select-sm" name="department" name="department" [(ngModel)]="person.department" (change)="loadLocalities(person.department);">
+                                            <select class="custom-select custom-select-sm" name="departmentId" name="departmentId" [(ngModel)]="person.departmentId" (change)="loadLocalities(person.departmentId);">
                                                         <option selected="">Seleccione</option>
                                                         <option *ngFor="let item of departments" [value]="item.id">{{ item.name }}</option>
                                                     </select>
@@ -102,7 +103,7 @@
                                         <label class="col-md-2 col-form-label">Localidad</label>
                                         <div class="col-md-10">
 
-                                            <select class="custom-select custom-select-sm" name="locality" name="locality" [(ngModel)]="person.locality">
+                                            <select class="custom-select custom-select-sm" name="localityId" name="localityId" [(ngModel)]="person.localityId">
                                                             <option selected="">Seleccione</option>
                                                             <option *ngFor="let item of localities" [value]="item.id">{{ item.name }}</option>
                                                         </select>
@@ -115,7 +116,7 @@
                                         <label class="col-md-2 col-form-label">Puesto</label>
                                         <div class="col-md-10">
 
-                                            <select class="custom-select custom-select-sm" name="person.job" name="job" [(ngModel)]="person.job">
+                                            <select class="custom-select custom-select-sm" name="jobId" name="jobId" [(ngModel)]="jobId">
                                                                 <option selected="">Seleccione</option>
                                                                 <option *ngFor="let item of positions" [value]="item.id">{{ item.name }}</option>
                                                             </select>
@@ -130,6 +131,7 @@
                                     </span>Confirmar Guardar</button>
                                     </div>
                                 </fieldset>
+                                <pre>{{ formAdd.value | json}}</pre>
                             </form>
                         </div>
                     </div>
@@ -137,6 +139,7 @@
                 </div>
 
             </div>
+
         </tab>
         <tab [disabled]="addperson" heading="INFORMACION DE CONTRATO">Legajo</tab>
         <tab [disabled]="addperson" heading="INFORMACION LABORAL">Area de Trabajo</tab>

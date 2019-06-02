@@ -46,7 +46,7 @@
                         <div class="form-group with-focus" [ngClass]="{ 'has-danger': frmAU.get('name').valid }">
                             <label for="name">ÁMBITO</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" formControlName="name" placeholder="INGRESE ÁMBITO" aria-describedby="inputGroupPrepend2" required />
+                                <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" formControlName="name" placeholder="INGRESE ÁMBITO" aria-describedby="inputGroupPrepend2" required />
                             </div>
                             <div *ngIf="
                   frmAU.controls['name'].errors?.required &&

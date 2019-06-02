@@ -76,9 +76,10 @@ export class DepartmentService {
     return this.http.get( url, { headers:new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }
   listbyProvince( id: string ) {
+    // console.log(id, 'por id provincia');
     
     let url = URL_SERVICIOS + '/province/';//?desde=' + desde;
-    url+= `?filter={"where":{"id":${ id }},"relations":["departments"]}`;
+    url+= `?filter={"where":[{"id":${ id }}],"relations":["departments"]}`;
     return this.http.get( url, { headers:new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }
 }

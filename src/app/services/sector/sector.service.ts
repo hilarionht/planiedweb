@@ -18,13 +18,13 @@ export class SectorService {
   ) { }
   create( sector: Sector ) {
     let url = URL_SERVICIOS + '/sector';
-    console.log(' create sector: ',sector);
+    // console.log(' create sector: ',sector);
     return this.http.post(url, sector ,  { headers:new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)})
       .map((res: any) => {
         // this.toastr.success( sector.name , 'sector Exitosa!',{ timeOut: 3000,positionClass: 'toast-top-right'});
         return res.sector;
       }).catch( err => {
-        console.log(err, 'error en backend');
+        // console.log(err, 'error en backend');
         // this.toastr.warning( err.error.errors.message , 'Error en generar sector!',{ timeOut: 3000,positionClass: 'toast-top-right'});
         return Observable.throw( err );
       });;
@@ -32,7 +32,7 @@ export class SectorService {
   update( sector: Sector ) {
 
     let url = URL_SERVICIOS + '/sector';
-    console.log(url);
+    // console.log(url);
     
     return this.http.put( url, sector ,  { headers:new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`) } )
                 .map( (resp: any) => {

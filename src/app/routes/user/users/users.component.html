@@ -74,12 +74,7 @@
                 <div class="form-group row">
                     <label class="col-xl-2 col-form-label">Rol</label>
                     <div class="col-xl-10">
-                        <select class="custom-select  form-control" #role_id="ngModel" name="role" id="role" [(ngModel)]="user.role">
-                            <option value="" selected>Selecciones</option>
-                            <option *ngFor="let rol of roles" [value]="rol.id">
-                            {{ rol.name }}
-                            </option>
-                        </select>
+                        <ngx-select [allowClear]="true" [items]="roles" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Rol" name="roleId" id="roleId" [(ngModel)]="user.roleId"> </ngx-select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -98,7 +93,7 @@
                 <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" (click)="modal.close('Close click')">
                     <span class="btn-label"><i class="fa fa-times"></i>
                 </span>Cancelar</button>
-                <button class="mr-1 btn btn-labeled btn-success mb-2" type="submit">
+                <button class="mr-1 btn btn-labeled btn-success mb-2" type="submit" [disabled]="!userForm.valid">
                         <span class="btn-label"><i class="fa fa-check"></i>
                    </span>Guardar</button>
 

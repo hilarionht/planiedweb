@@ -84,15 +84,16 @@ export class RolesComponent implements OnInit {
       .subscribe((res: any) => {
         this.setPage({ offset: 0 });
         this.resetForm(form);
+        this.modalService.dismissAll(this.CloseModal);
       });
     } else {
       this._rolService.create(form.value)
         .subscribe((res: any) => {
           this.setPage({ offset: 0 });
           this.resetForm(form);
+          this.modalService.dismissAll(this.CloseModal);
         });
     }
-    this.modalService.dismissAll(this.CloseModal);
   }
   CloseModal(data: string, form?: NgForm) {
     this.modalService.dismissAll(this.CloseModal);
@@ -101,17 +102,19 @@ export class RolesComponent implements OnInit {
     this.title = 'ELIMINAR';
     this.role = new Role(null, '0', null, null);
     if (id) {
-      this._rolService.get(id).subscribe((resp: any) => {this.role = resp.data; });
+      this._rolService.get(id).subscribe((resp: any) => {
+        this.role = resp.data;
+        this.modalService.open(pdelete, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then(
+          () => {   }, () => {    });
+       });
     }
-    this.modalService.open(pdelete, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then(() => {
-    }, () => {
-    });
   }
   delete(pdelete, id: string) {
     this._rolService.delete(id).subscribe((resp: any) => {
         this.setPage({ offset: 0 });
+        this.modalService.dismissAll(pdelete);
     });
-    this.modalService.dismissAll(pdelete);
+
   }
   getRoles() {
     this._rolService.list().subscribe((resp: any) => {
@@ -132,13 +135,23 @@ export class RolesComponent implements OnInit {
     this.title = 'AGREGAR';
     this.role = new Role(null, '0', null, null);
     if (id) {
-      this._rolService.get(id).subscribe((resp: any) => this.role = resp);
+      this._rolService.get(id).subscribe((resp: any) => {
+        this.role = resp;
+        // tslint:disable-next-line:max-line-length
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      });
+    } else {
+      // tslint:disable-next-line:max-line-length
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
     }
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
 
 
@@ -149,13 +162,13 @@ export class RolesComponent implements OnInit {
     this.title = 'EDITAR';
     this.role = new Role(null, '0', null, null);
     if (id) {
-      this._rolService.get(id).subscribe((resp: any) => {this.role = resp.data; });
-    }
+      this._rolService.get(id).subscribe((resp: any) => {this.role = resp.data;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    }); });
+  }
   }
 
   private getDismissReason(reason: any, form?: NgForm): string {

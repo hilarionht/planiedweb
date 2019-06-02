@@ -26,7 +26,6 @@ export class UserService {
   user: User;
   role: Role;
   token: string;
-  // TOASTER
   toaster: any;
   toasterConfig: any;
   toasterconfig: ToasterConfig = new ToasterConfig({
@@ -95,18 +94,13 @@ export class UserService {
     const url = URL_SERVICIOS + '/auth/login';
     return this.http.post(url, user)
               .map( (resp: any) => {
-                console.log(resp, 'login......');
-                
                 if (resp.success === true) {
                   const tokenInfo = this.getDecodedAccessToken(resp.data.token); // decode token
                   const expireDate = tokenInfo.exp; // get token expiration dateTime
-                  console.log('token decoder', tokenInfo); // show decoded token object in console
                   this.saveStorage(tokenInfo.id, resp.data.token, tokenInfo.user, tokenInfo.user.role);
                   return true;
                 }
               }).catch( (err: any) => {
-                console.log('error en login ', err);
-                
                 this.toasterService.pop('warning', 'Error de Accesos', 'usuario o password invalidos');
                 // throw (new Error(err.error.error));
                 return Observable.throw( err );
@@ -137,14 +131,11 @@ export class UserService {
   }
   create(user: User)  {
     const url = URL_SERVICIOS + '/user';
-    console.log(user);
-
-   return this.http.post(url, user ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)})
+    return this.http.post(url, user ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)})
      .map((res: any) => {
       this.toasterService.pop('success', 'Usuario Creado', 'El usuario: ' + user.username + ' fue creado exitosamente!' );
        return res.user;
      }).catch( err => {
-       console.log(err);
        // tslint:disable-next-line:max-line-length
        this.toasterService.pop( 'warning' , 'Error al crear el Usuario' , `No se puede generar el usuario con el nombre ${ user.username }, consulte con su administrador!` );
        return Observable.throw( err );
@@ -157,7 +148,6 @@ export class UserService {
   }
   update(user: User) {
     const url = URL_SERVICIOS + '/user';
-    console.log(url);
     return this.http.put( url, user, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`) } )
                 .map( (resp: any) => {
                   if ( user.id === this.user.id ) {
@@ -190,13 +180,12 @@ export class UserService {
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }
   users( page: Page ) { // word:  string
-    console.log(page);
     const url = URL_SERVICIOS + '/user/?paginate={"limit":' + page.limit + ',"numberPage":' + page.numberPage + '}&isPaginate=true';
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
   }
   getById(id: string) {
-    let url = URL_SERVICIOS + '/user/';
-    url += `?filter={"relations":["role"],"where":{"id":${ id }}}`;
+    let url = URL_SERVICIOS + '/user/' + id;
+    url += `?filter={"relations":["role"]}`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} )
                     .map(resp => resp);
   }

@@ -56,7 +56,7 @@
                         <div class="col-md-12">
                             <label for="name">Nombre</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="province.name" placeholder="INGRESE PROVINCIA" aria-describedby="inputGroupPrepend2" required>
+                                <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" name="name" #name="ngModel" [(ngModel)]="province.name" placeholder="INGRESE PROVINCIA" aria-describedby="inputGroupPrepend2" required>
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                     <label class="col-xl-2 col-form-label">Provincia</label>
                     <div class="col-xl-10">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="username" #name="ngModel" [(ngModel)]="province.name" placeholder="Username" aria-describedby="inputGroupPrepend2" readonly="readonly">
+                            <input type="text" class="form-control" name="username" #name="ngModel" [(ngModel)]="province.name" oninput="this.value = this.value.toUpperCase()" placeholder="Username" aria-describedby="inputGroupPrepend2" readonly="readonly">
                         </div>
                     </div>
                 </div>

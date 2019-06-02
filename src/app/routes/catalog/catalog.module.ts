@@ -1,11 +1,9 @@
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ProvinceComponent } from './province/province.component';
 import { RegionComponent } from './region/region.component';
 import { SectorComponent } from './sector/sector.component';
 import { AmbitComponent } from './ambit/ambit.component';
-import { InstitutionComponent } from './institution/institution.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginGuard } from '../../services/service.index';
@@ -23,7 +21,7 @@ import { TagInputModule } from 'ngx-chips';
 const routes: Routes = [
   { path: '', redirectTo: 'catalog' },
   { path: 'region', component: RegionComponent },
-  { path: 'institution', component: InstitutionComponent , canActivate: [LoginGuard]},
+  // { path: 'institution', component: InstitutionComponent , canActivate: [LoginGuard]},
   { path: 'provinc', component: ProvinceComponent , canActivate: [LoginGuard]},
   { path: 'sector', component: SectorComponent , canActivate: [LoginGuard]},
   { path: 'ambit', component: AmbitComponent , canActivate: [LoginGuard]},
@@ -48,7 +46,7 @@ const routes: Routes = [
     RegionComponent,
     SectorComponent,
     AmbitComponent,
-    InstitutionComponent,
+    // InstitutionComponent,
     CatalogComponent,
     DepartamentComponent,
     LocalityComponent,

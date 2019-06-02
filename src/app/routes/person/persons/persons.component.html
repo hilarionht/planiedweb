@@ -1,5 +1,5 @@
 <div class="content-heading">
-    <div>Administracion de Personal
+    <div>Administración de Personal
         <small>Administre su Personal existente</small></div>
 </div>
 <!-- START cards box-->
@@ -70,11 +70,10 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-xl-6">
-                        <h3>LISTA DE PERSONAL </h3>
                     </div>
                     <div class="col-xl-6">
                         <div class="btn-group float-right">
-                            <button type="button" class="btn btn-labeled btn-purple" [routerLink]="['/person/person', '0']"><span class='btn-label'> <i class ='fa fa-tasks'></i> </span>Agregar</button>
+                            <button type="button" class="btn btn-labeled btn-purple" [routerLink]="['/person/employee', '0']"><span class='btn-label'> <i class ='fa fa-tasks'></i> </span>Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -85,7 +84,8 @@
 
 
             <div class="card-body">
-                <ngx-datatable #lista class='bootstrap no-detail-row' [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' (page)='setPage($event)'>
+                <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalEntities" [offset]="page.numberPage"
+                    [limit]="page.limit" (page)='setPage($event)'>
                     <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
                     <ngx-datatable-column name="APELLIDO" prop="person.firstname"></ngx-datatable-column>
                     <ngx-datatable-column name="NOMBRE" prop="person.lastname"></ngx-datatable-column>

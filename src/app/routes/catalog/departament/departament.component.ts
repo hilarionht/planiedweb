@@ -1,7 +1,7 @@
 import { log } from 'util';
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Department } from '../../../models/departament.model';
-import { DepartamentService, ProvinceService } from '../../../services/service.index';
+import { DepartmentService, ProvinceService } from '../../../services/service.index';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Province } from '../../../models/province.model';
@@ -29,7 +29,7 @@ temp = [];
   province: Province;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   constructor(
-    public _depService: DepartamentService,
+    public _depService: DepartmentService,
     public _provService: ProvinceService,
     public routeActivate: ActivatedRoute,
     public router: Router,
@@ -41,6 +41,7 @@ temp = [];
     this.routeActivate.params.subscribe( param => {
       this.id = param['id'];
       this.provinceid = this.id;
+      console.log(this.id);
       if (this.id) {
         this._depService.listbyProvince(this.id).subscribe( (resp: any) => {
           this.province = resp.data[0];

@@ -8,7 +8,7 @@ export class User{
         public email: string,
         public image?:string,
         public role?: string,
-        public role_id?:string,
+        public roleId?:string,
         public id?: string
         ){
 

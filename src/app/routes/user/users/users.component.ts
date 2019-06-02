@@ -54,17 +54,15 @@ export class UsersComponent implements OnInit {
   editUser(content, id: any) {
     if (id) {
         this._userService.getById(id).subscribe((user: any) => {
-          this.user = user.data[0];
-          this.rol = user.data[0].role;
-          this.user.role = this.rol.id;
+          this.user = user.data;
           this.title = 'EDICION';
           this.loadRoles();
-        } );
-      }
-      // tslint:disable-next-line:max-line-length
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
-      }, (reason) => {
-      });
+          // tslint:disable-next-line:max-line-length
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+        }, (reason) => {
+        });
+          } );
+        }
 }
 confirm(pdelete, id: any) {
   if (id) {
@@ -74,12 +72,12 @@ confirm(pdelete, id: any) {
       this.user.role = this.rol.id;
       this.title = 'ELIMINAR';
       this.loadRoles();
-    } );
-  }
-  // tslint:disable-next-line:max-line-length
-  this.modalService.open(pdelete, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
-  }, (reason) => {
-  });
+      // tslint:disable-next-line:max-line-length
+    this.modalService.open(pdelete, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+    }, (reason) => {
+    });
+      } );
+    }
 }
 delete(pdelete, id: string) {
   this._userService.delete(id).subscribe((resp: any) => {
@@ -128,15 +126,17 @@ addUser(content, form?: NgForm) {
       .subscribe(res => {
         this.resetForm(form);
         this.setPage({ offset: 0 });
+        this.modalService.dismissAll(content);
       });
   } else {
     this._userService.update(form.value)
     .subscribe(res => {
       this.resetForm(form);
       this.setPage({ offset: 0 });
+      this.modalService.dismissAll(content);
     });
   }
-  this.modalService.dismissAll(content);
+  
 }
 open(content, id: string) {
   this.title = 'AGREGAR';

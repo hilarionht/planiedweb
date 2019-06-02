@@ -1,6 +1,6 @@
     
 
-export class Person{
+export class Person {
     constructor(
         public lasname: string,
         public firstname: string,
@@ -9,10 +9,9 @@ export class Person{
         public address: string,
         public postalCode: string,
         public birthday: Date,
-        public job?: string,
-        public locality?: string,
-        public department?: string,
-        public province?: string,
+        public localityId?: string,
+        public departmentId?: string,
+        public provinceId?: string,
         public state?: boolean,
         public id?: string
     ) {

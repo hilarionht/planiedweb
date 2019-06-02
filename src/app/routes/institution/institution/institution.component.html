@@ -1,0 +1,139 @@
+<div class="content-heading">
+    <div>Institucion
+        <small>insitucion </small>
+    </div>
+</div>
+
+
+<form [formGroup]="instForm" (ngSubmit)="save($event, instForm.value)" class="form-validate mb-3" novalidate="novalidate" *ngIf="!loading">
+    <div class="modal-body container">
+        <div class="form-group">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card b">
+                    <div class="card-header">
+                        <div class="float-right">
+                            <div class="badge badge-info"></div>
+                        </div>
+                        <h4 class="m-0">Información de institucion</h4>
+                        <!-- <small class="text-muted">telefonos de contacto</small> -->
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" name="id" formControlName="id" />
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="form-row">
+                                    <div class="col-lg-4 mb-3" [ngClass]="{ 'has-danger': instForm.get('name').valid }">
+                                        <label for="name" class="col-form-label">Nombre</label>
+                                        <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" formControlName="name" placeholder="INGRESE INSTITUCION" aria-describedby="inputGroupPrepend2" />
+                                        <div *ngIf="instForm.controls['name'].errors?.required && instForm.controls['name'].touched" class="invalid-feedback">El nombre es requerido</div>
+                                    </div>
+                                    <div class="col-lg-4 mb-3" [ngClass]="{ 'has-danger': instForm.get('cue').valid }">
+                                        <label for="name" class="col-form-label">CUE</label>
+                                        <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" formControlName="cue" placeholder="INGRESE CUE" aria-describedby="cue" />
+                                        <div *ngIf="instForm.controls['cue'].errors?.required && instForm.controls['cue'].touched" class="text-danger form-control-feedback">El CUE es requerido</div>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 whith-focus">
+                                        <label class="col-form-label">Dirección</label>
+                                        <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" formControlName="direccion" placeholder="INGRESE DIRECCIÓN" aria-describedby="direccion" />
+                                        <div *ngIf="instForm.controls['direccion'].errors?.required && instForm.controls['direccion'].touched" class="text-danger form-control-feedback">Este campo es requerido</div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+
+                                    <div class="col-lg-4 mb-3" [ngClass]="{ 'has-danger': instForm.get('provinceId').valid }">
+                                        <label class="col-form-label">Provincia</label>
+                                        <ngx-select [allowClear]="true" [items]="provinces" optionValueField="id" optionTextField="name" (select)="loadDepartment($event);" (removed)="removed($event)" placeholder="Seleccion Provincia" formControlName="provinceId">
+                                        </ngx-select>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 whith-focus">
+                                        <label class="col-form-label">Departamento</label>
+                                        <ngx-select [allowClear]="true" [items]="departments" optionValueField="id" optionTextField="name" (select)="loadLocalities($event);" (removed)="removed($event)" placeholder="Seleccion Departamento" formControlName="departmentId">
+                                        </ngx-select>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 whith-focus">
+                                        <label class="col-form-label">Localidad</label>
+                                        <ngx-select [allowClear]="true" [items]="localities" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Localidad" formControlName="localityId">
+                                        </ngx-select>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 whith-focus">
+                                        <label class="col-form-label">Ambito</label>
+                                        <ngx-select [allowClear]="true" [items]="ambits" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion ámbito" formControlName="ambitId">
+                                        </ngx-select>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 whith-focus">
+                                        <label class="col-form-label">Sector</label>
+                                        <ngx-select [allowClear]="true" [items]="sectors" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Sector" formControlName="sectorId">
+                                        </ngx-select>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 whith-focus">
+                                        <label class="col-form-label">Region</label>
+                                        <ngx-select [allowClear]="true" [items]="regions" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Region" formControlName="regionId">
+                                        </ngx-select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12">
+            <div class="card b" formArrayName="phones">
+                <div class="card-header">
+                    <div class="float-right">
+                        <div class="badge badge-info"></div>
+                    </div>
+                    <h4 class="m-0">Contacto</h4>
+                    <small class="text-muted">teléfonos de contacto</small>
+                </div>
+                <div class="card-body">
+                    <div class="" *ngFor="let contact of contactFormGroup.controls; let i = index;">
+                        <div [formGroupName]="i" class="row">
+                            <input type="hidden" name="institutionId" formControlName="institutionId" />
+                            <input type="hidden" name="id" formControlName="id" />
+
+                            <div class="from-group col-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <ngx-select [allowClear]="true" [items]="phonetypes" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Tipo" formControlName="phoneTypeId">
+                                        </ngx-select>
+                                    </div>
+                                    <input class="form-control" (keypress)="keyPress($event)" formControlName="number" placeholder="Ingrese un numero" type="text">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary btn-sm" (click)="removeContact(i)" aria-label="eliminar" matTooltip="eliminar"><em class="far fa-trash-alt"></em></button>
+                                    </div>
+                                </div>
+                                <span class="text-danger" *ngIf="getContactsFormGroup(i).controls['number'].touched && getContactsFormGroup(i).controls['number'].hasError('required')">
+                                            El número de Teléfono es requerido! </span>
+                                <span class="text-danger" *ngIf="getContactsFormGroup(i).controls['number'].touched && getContactsFormGroup(i).controls['number'].hasError('email')">
+                                            Email is not valid! </span>
+                                <span class="text-danger" *ngIf="getContactsFormGroup(i).controls['number'].touched && getContactsFormGroup(i).controls['number'].hasError('pattern')">
+                                            Teléfono no es valido! </span>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+                <div class="card-footer text-center align-items-center bt0">
+                    <button class="btn btn-secondary btn-sm m-1" type="button" (click)="addContact()">
+                            <em class="fa-1x mr-2 fas fa-plus-square"></em>
+                             <span>Agregar número de telefono</span>
+                        </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" [routerLink]="['/institution/institutions']" routerLinkActive="router-link-active">
+                        <span class="btn-label"><i class="fa fa-times"></i>
+                         </span>Cancelar</button>
+                <!--[disabled]="!instForm.valid" -->
+                <button type="submit" class="mr-1 btn btn-labeled btn-success mb-2" [disabled]="!instForm.valid"><span class="btn-label"><i class="fa fa-save"></i></span>Guardar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<!-- <pre>{{ instForm.valid }}<br> {{ instForm.value | json}}</pre> -->

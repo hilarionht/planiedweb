@@ -39,7 +39,6 @@ export class RoleService {
       );
   }
   private handleError(error: Response | any) {
-    console.error(error, 'erro: <<<' );
     return Observable.throw(error); // <= B
 }
   update( role: Role ) {

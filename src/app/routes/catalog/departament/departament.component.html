@@ -96,7 +96,7 @@
                 <label class="col-xl-2 col-form-label">Departamento</label>
                 <div class="col-xl-10">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="department.name" placeholder="department" aria-describedby="inputGroupPrepend2" readonly="readonly" />
+                        <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase()" name="name" #name="ngModel" [(ngModel)]="department.name" placeholder="department" aria-describedby="inputGroupPrepend2" readonly="readonly" />
                     </div>
                 </div>
             </div>

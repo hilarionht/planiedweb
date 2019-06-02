@@ -22,8 +22,8 @@ export class InstitutionService {
     // tslint:disable-next-line:max-line-length
     return this.http.post(url, institution, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)})
       .map((res: any) => {
-        this.toasterService.pop('success', 'Guardar Posicion', 'Guardado con Exitos!');
-        return res.institution;
+        this.toasterService.pop('success', 'Guardar Institución', 'Guardado con Exitos!');
+        return res;
       }).catch( err => {
         this.toasterService.pop('warning', 'Error al Guardar', err.error.message);
         return Observable.throw( err );
@@ -34,8 +34,8 @@ export class InstitutionService {
     // tslint:disable-next-line:max-line-length
     return this.http.put( url, institution ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`) } )
                 .map( (resp: any) => {
-                  this.toasterService.pop('info', 'Modificacion de Posicion', 'modificado exitosamente!');
-                  return true;
+                  this.toasterService.pop('info', 'Institución', 'modificado exitosamente!');
+                  return resp;
                 });
   }
 
@@ -46,7 +46,7 @@ export class InstitutionService {
   }
   getById(id: string) {
     let url = URL_SERVICIOS + '/institution/' + id;
-    url += `?filter={"relations":["ambit","sector","region","locality", "locality.department","locality.department.province"]}`;
+    url += `?filter={"relations":["ambit","sector","region","locality", "locality.department","locality.department.province","phones"]}`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} )
                     .map(resp => resp);
   }
@@ -54,7 +54,7 @@ export class InstitutionService {
     const url = URL_SERVICIOS + '/institution/' + id;
     return this.http.delete( url ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`) } )
                 .map( resp => {
-                  this.toasterService.pop('success', 'Guardar Posicion', 'Guardado con Exitosamente');
+                  this.toasterService.pop('success', 'Guardar Institución', 'Guardado con Exitosamente');
                   return true;
                 }).catch( err => {
                   this.toasterService.pop('warning', 'Error al Guardar Posición', err.error.message);

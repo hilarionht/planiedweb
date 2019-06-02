@@ -1,216 +1,151 @@
-<div class="content-heading">Product #000123</div>
-<form class="card">
+<div class="card b">
     <tabset [justified]="true" class="ie-fix-flex">
-        <tab>
-            <ng-template tabHeading>Product Edit</ng-template>
-            <div>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Name:</label>
-                        <div class="col-lg-10">
-                            <input class="form-control" type="text" placeholder="Product name.." />
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Description:</label>
-                        <div class="col-lg-10">
-                            <textarea class="form-control" cols="5" placeholder="Short description.."></textarea>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Price:</label>
-                        <div class="col-lg-10">
-                            <input class="form-control" type="text" placeholder="$ 123.20" />
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Quantity:</label>
-                        <div class="col-lg-10">
-                            <input class="form-control" type="number" placeholder="0" min="0" />
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Tax :</label>
-                        <div class="col-lg-10">
-                            <input class="form-control" type="text" placeholder="20%" />
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Status:</label>
-                        <div class="col-lg-10">
-                            <select class="form-control">
-                                <option value="">Select..</option>
-                                <option value="0">Public</option>
-                                <option value="1">Pending</option>
-                            </select>
-                        </div>
-                    </div>
-                </fieldset>
+        <tab heading="DATOS PERSONALES" id="personTab">
+            <div class="card-header">
+                <h4 class="m-0">Información Personal</h4>
             </div>
-        </tab>
-        <tab>
-            <ng-template tabHeading>Informacion laboral</ng-template>
-            <div>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Title</label>
-                        <div class="col-lg-10">
-                            <input class="form-control" type="text" placeholder="Brief description.." />
+            <div class="card-body">
+                <form [formGroup]="form" class="form-validate mb-3" (ngSubmit)="save($event, form.value)" novalidate="novalidate">
+                    <div formGroupName="person">
+                        <input type="hidden" formControlName="id" />
+                        <div class="form-row">
+                            <div class="col-lg-4 mb-3">
+
+                                <label for="lastname">Apellido</label>
+                                <input type="text" class="form-control  with-focus" placeholder="Apellido" formControlName="lastname">
+                                <div *ngIf="form.controls['person'].controls['lastname'].errors?.required && form.controls['person'].controls['lastname'].touched" class="text-danger form-control-feedback">
+                                    El apellido es requerido
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mb-3" [ngClass]="displayFieldCss('person.firstname')">
+                                <label for="firstname">Nombre</label>
+                                <input type="text" class="form-control  with-focus" placeholder="Nombre" name="firstname" formControlName="firstname">
+                                <div *ngIf="form.controls['person'].controls['firstname'].errors?.required && form.controls['person'].controls['firstname'].touched" class="text-danger form-control-feedback">
+                                    El nombre es requerido
+                                </div>
+                                <!-- <div *ngIf="form.controls['firstname'].errors?.minlength && form.controls['firstname'].touched">el campo requiere por lo menos 5 caracteres</div> .get('firstname').errformors.required && (form.get('firstname').dirty || form.get('firstname').touched)-->
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="email">Email</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                    </div>
+                                    <input type="text" class="form-control with-focus" placeholder="email" aria-describedby="inputGroupPrepend" formControlName="email">
+                                    <div *ngIf="form.controls['person'].controls['email'].errors?.required && form.controls['person'].controls['email'].touched" class="text-danger form-control-feedback">
+                                        El nombre es requerido
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-lg-3 mb-3">
+                                <label for="validationServer03">Fecha de Nacimiento</label>
+                                <input class="form-control" type="text" placeholder="Fecha de Nacimiento" name="birthday" #dp="bsDatepicker" bsDatepicker [bsValue]="birthday" [bsConfig]="bsConfig" formControlName="birthday" />
+                                <!-- <input class="form-control" type="text" placeholder="Fecha de Nacimiento" name="birthday" [ngModel]="person.birthday" #dp="bsDatepicker" bsDatepicker [bsValue]="person.birthday" [bsConfig]="bsConfig" /> -->
+                            </div>
+
+                            <div class="col-lg-3 mb-3">
+                                <label for="validationServer05">Documento</label>
+                                <input class="form-control with-focus" type="text" placeholder="D.N.I." formControlName="identityDocument" />
+                                <div class="invalid-feedback">Please provide a valid zip.</div>
+                            </div>
+                            <div class="col-lg-6 mb-3" [ngClass]="displayFieldCss('person.address')">
+                                <label for="validationServer05">Dirección</label>
+                                <input class="form-control with-focus" type="text" placeholder="Ingrese Dirección" formControlName="address" />
+                                <div class="invalid-feedback">Please provide a valid zip.</div>
+                            </div>
+                            <input type="hidden" formControlName="id">
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-3 mb-3">
+                                <label for="validationServer03">Provincia</label>
+                                <ngx-select [allowClear]="true" [items]="provinces" optionValueField="id" optionTextField="name" (select)="loadDepartment($event);" (removed)="removed($event)" placeholder="Seleccion Provincia" formControlName="provinceId">
+                                </ngx-select>
+                            </div>
+                            <div class="col-lg-3 mb-3">
+                                <label for="validationServer04">Departamento</label>
+                                <ngx-select [allowClear]="true" [items]="departments" optionValueField="id" optionTextField="name" (select)="loadLocalities($event);" (removed)="removed($event)" placeholder="Seleccion Departamento" formControlName="departmentId">
+                                </ngx-select>
+                            </div>
+                            <div class="col-lg-4 mb-4">
+                                <label for="validationServer05">Localidad</label>
+                                <ngx-select [allowClear]="true" [items]="localities" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Localidad" formControlName="localityId">
+                                </ngx-select>
+                            </div>
+                            <div class="col-lg-2 mb-2">
+                                <label for="validationServer04">Código Postal</label>
+                                <input class="form-control with-focus" id="postalCode" type="text" placeholder="CODIGO POSTAL" formControlName="postalCode" />
+
+                            </div>
                         </div>
                     </div>
-                </fieldset>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Description</label>
-                        <div class="col-lg-10">
-                            <textarea class="form-control" rows="5" placeholder="Max 255 characters..."></textarea>
+                    <div class="" formArrayName="phones">
+                        <div class="card-header">
+                            <div class="float-right">
+                                <div class="badge badge-info"></div>
+                            </div>
+                            <h4 class="m-0">Información de Contacto</h4>
+                            <small class="text-muted">teléfonos de contacto</small>
+                        </div>
+                        <div class="">
+                            <div class="" *ngFor="let contact of contactFormGroup.controls; let i = index;">
+                                <div [formGroupName]="i" class="row">
+                                    <input type="hidden" name="institutionId" formControlName="institutionId" />
+                                    <input type="hidden" name="id" formControlName="id" />
+
+                                    <div class="from-group col-12">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <ngx-select [allowClear]="true" [items]="phonetypes" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Tipo" formControlName="phoneTypeId">
+                                                </ngx-select>
+                                            </div>
+                                            <input class="form-control" (keypress)="keyPress($event)" formControlName="number" placeholder="Ingrese un numero" type="text">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary btn-sm" (click)="removeContact(i)"><em class="far fa-trash-alt"></em></button>
+                                            </div>
+                                        </div>
+                                        <span class="text-danger" *ngIf="getContactsFormGroup(i).controls['number'].touched && getContactsFormGroup(i).controls['number'].hasError('required')">
+                                                El número de Teléfono es requerido! </span>
+                                        <span class="text-danger" *ngIf="getContactsFormGroup(i).controls['number'].touched && getContactsFormGroup(i).controls['number'].hasError('email')">
+                                                Email is not valid! </span>
+                                        <span class="text-danger" *ngIf="getContactsFormGroup(i).controls['number'].touched && getContactsFormGroup(i).controls['number'].hasError('pattern')">
+                                                Teléfono no es valido! </span>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <button class="btn btn-secondary btn-sm m-1" type="button" (click)="addContact()">
+                                <em class="fa-1x mr-2 fas fa-plus-square"></em>
+                                 <span>Agregar número de teléfono</span>
+                            </button>
                         </div>
                     </div>
-                </fieldset>
-                <fieldset>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Keywords</label>
-                        <div class="col-lg-10">
-                            <textarea class="form-control" rows="5" placeholder="Max 1000 characters..."></textarea>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-        </tab>
-        <tab>
-            <ng-template tabHeading>Perfil</ng-template>
-            <div>
-                <div class="row mb-3">
-                    <div class="col-3">
-                        <strong>Preview</strong>
-                    </div>
-                    <div class="col-9">
-                        <strong>Details</strong>
-                    </div>
-                </div>
-                <div class="row mb-3 pb-3 bb">
-                    <div class="col-6 col-md-3">
-                        <a href="#" title="Product 1">
-                            <img class="img-fluid" src="assets/img/bg7.jpg" alt="Product 1" />
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-9">
+                    <!-- <div class="modal-footer">
+                    
+                    [disabled]="!instForm.valid" 
+                    <button type="submit" class="mr-1 btn btn-labeled btn-success mb-2"><span class="btn-label"><i class="fa fa-save"></i></span>Guardar</button>
+            </div> -->
+                    <div class="modal-footer">
                         <fieldset>
-                            <div class="form-group row">
-                                <input class="form-control" type="text" placeholder="Brief description.." />
+                            <div class="d-flex right">
+                                <button type="button" class="mr-1 btn btn-labeled btn-info mb-2" data-dismiss="modal" [routerLink]="['/person/employees']" routerLinkActive="router-link-active">
+                        <span class="btn-label"><i class="fa fa-times"></i>
+                         </span>Cancelar</button>
+                                <button class="mr-1 btn btn-labeled btn-success mb-2" type="submit" [disabled]="!form.valid"> <span class="btn-label"><i class="fa fa-check"></i></span> Guardar </button>
                             </div>
                         </fieldset>
-                        <p>
-                            <strong>Picture type</strong>
-                        </p>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod1-pic" value="option1" checked="" />
-                                <span></span>Primary</label>
-                        </div>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod1-pic" value="option2" />
-                                <span></span>Thumbnail</label>
-                        </div>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod1-pic" value="option3" />
-                                <span></span>Gallery</label>
-                        </div>
-                        <div class="text-right">
-                            <button class="btn btn-sm btn-danger" type="button">
-                                <em class="fa fa-times-circle fa-fw"></em>Remove</button>
-                        </div>
                     </div>
-                </div>
-                <div class="row mb-3 pb-3 bb">
-                    <div class="col-6 col-md-3">
-                        <a href="#" title="Product 2">
-                            <img class="img-fluid" src="assets/img/bg8.jpg" alt="Product 1" />
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-9">
-                        <fieldset>
-                            <div class="form-group row">
-                                <input class="form-control" type="text" placeholder="Brief description.." />
-                            </div>
-                        </fieldset>
-                        <p>
-                            <strong>Picture type</strong>
-                        </p>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod2-pic" value="option1" checked="" />
-                                <span></span>Primary</label>
-                        </div>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod2-pic" value="option2" />
-                                <span></span>Thumbnail</label>
-                        </div>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod2-pic" value="option3" />
-                                <span></span>Gallery</label>
-                        </div>
-                        <div class="text-right">
-                            <button class="btn btn-sm btn-danger" type="button">
-                                <em class="fa fa-times-circle fa-fw"></em>Remove</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3 pb-3">
-                    <div class="col-6 col-md-3">
-                        <a href="#" title="Product 3">
-                            <img class="img-fluid" src="assets/img/bg10.jpg" alt="Product 1" />
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-9">
-                        <fieldset>
-                            <div class="form-group row">
-                                <input class="form-control" type="text" placeholder="Brief description.." />
-                            </div>
-                        </fieldset>
-                        <p>
-                            <strong>Picture type</strong>
-                        </p>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod3-pic" value="option1" checked="" />
-                                <span></span>Primary</label>
-                        </div>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod3-pic" value="option2" />
-                                <span></span>Thumbnail</label>
-                        </div>
-                        <div class="c-radio c-radio-nofont">
-                            <label>
-                                <input type="radio" name="prod3-pic" value="option3" />
-                                <span></span>Gallery</label>
-                        </div>
-                        <div class="text-right">
-                            <button class="btn btn-sm btn-danger" type="button">
-                                <em class="fa fa-times-circle fa-fw"></em>Remove</button>
-                        </div>
-                    </div>
-                </div>
+
+                </form>
             </div>
         </tab>
+        <tab [disabled]="addperson" heading="INFORMACION DE CONTRATO">Legajo</tab>
+        <tab [disabled]="addperson" heading="INFORMACION LABORAL">Area de Trabajo</tab>
     </tabset>
-</form>
-<div class="text-right mt-lg">
-    <button class="btn btn-warning" type="button">Discard</button>
-    <button class="btn btn-success" type="button">Save</button>
 </div>
+<!-- <pre> {{ form.value | json }} </pre> -->

@@ -2,13 +2,27 @@ const Persons = {
 
     text: 'Empleados',
     link: '/person',
-    icon: 'icon-speedometer',
-    role: [] = [1,2],
+    icon: 'icon-people',
+    role: [] = [1, 2],
     submenu: [
         {
             text: 'Empleados',
-            role: [] = [1,2],
-            link: '/person/persons'
+            role: [] = [1, 2],
+            link: '/person/employees'
+        }
+    ]
+};
+const Institutions = {
+
+    text: 'Institucion',
+    link: '/institution',
+    icon: 'icon-grid',
+    role: [] = [1, 2],
+    submenu: [
+        {
+            text: 'Institución',
+            role: [] = [1, 2],
+            link: '/institution/institutions'
         }
     ]
 };
@@ -16,17 +30,17 @@ const Persons = {
 const Users = {
     text: 'Configuracion',
     link: '/config',
-    icon: 'icon-grid',
-    role: [] = [1,2],
+    icon: 'icon-settings',
+    role: [] = [1, 2],
     submenu: [
         {
             text: 'Usuarios',
             link: '/config/users',
-            role: [] = [1,2],
+            role: [] = [1, 2],
         },
         {
             text: 'Roles',
-            role: [] = [1,2],
+            role: [] = [1, 2],
             link: '/config/roles'
         }
     ]
@@ -35,41 +49,36 @@ const Catalogs = {
     text: 'Catalogos',
     link: '/catalog',
     icon: 'icon-speedometer',
-    role: [] = [1,2],
+    role: [] = [1, 2],
     submenu: [
         {
-            text: 'Instituciones',
-            role: [] = [1,2],
-            link: '/catalog/institution'
-        },
-        {
             text: 'Region',
-            role: [] = [1,2],
+            role: [] = [1, 2],
             link: '/catalog/region'
         },
         {
             text: 'Sector',
-            role: [] = [1,2],
+            role: [] = [1, 2],
             link: '/catalog/sector'
         },
         {
             text: 'Ambito',
-            role: [] = [1,2],
+            role: [] = [1, 2],
             link: '/catalog/ambit'
         },
         {
             text: 'Provincia',
-            role: [] = [1,2],
+            role: [] = [1, 2],
             link: '/catalog/provinc'
         },
         {
             text: 'Tipos de Telefono',
-            role: [] = [1,2],
+            role: [] = [1, 2],
             link: '/catalog/phoneType'
         },
         {
             text: 'Referencias Telefonicas',
-            role: [] = [1,2],
+            role: [] = [1, 2],
             link: '/catalog/phoneReference'
         }
         // {
@@ -492,6 +501,7 @@ const headingMore = {
 export const menu = [
     //headingMain,
     Users,
+    Institutions,
     Persons,
     Home,
     Dashboard,

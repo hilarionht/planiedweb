@@ -9,7 +9,7 @@ export class Institution {
         public ambit?: string,
         public registrationNumber?: string,
         public employee?: string,
-        public _id?: string
+        public id?: string
     ) {
 
     }

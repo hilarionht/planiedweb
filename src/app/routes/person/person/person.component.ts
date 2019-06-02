@@ -34,6 +34,7 @@ export class PersonComponent implements OnInit, OnDestroy {
   localityId: string;
   departmentId: string;
   provinceId: string;
+  jobId: string;
   localities: Locality[] = [];
   departments: Department[] = [];
   provincs: Province[] = [];
@@ -60,28 +61,29 @@ export class PersonComponent implements OnInit, OnDestroy {
     this._localeService.use('es');
     this.routeActivate.params.subscribe( param => {
       this.id = param['id'];
-      this.person = new Person(null, null, null, null, null, null, new Date(), null, null, null, null, true, this.id);
+      this.person = new Person(null, null, null, null, null, null, new Date(),  null, null, null, true, this.id);
       if (this.id !== '0') {
         this.loading = true;
         this._employeeSerivice.getById(this.id).subscribe((resp: any) => {
           this.addperson = false;
           const lperson = resp.data.person;
+          console.log(resp, 'data person');
+          this.loadProvinces();   
+          this.loadJobs();
          // lperson.birthday = this.convertDateToString(resp.data.person.birthday);
           this.person = lperson;
           // this.person.birthday = this.convertDateToString(resp.data.persona.birthday);
-          if (resp.data.person.locality.id) {
-            this.localityId = resp.data.person.locality.id;
-            this.departmentId = resp.data.person.locality.department.id;
-            this.provinceId = resp.data.person.locality.department.province.id;
-            this.person.department = this.departmentId;
-            this.person.locality = this.localityId;
-            this.person.province = this.provinceId;
-            this.person.job = resp.data.job ? resp.data.job.id : null;
-            this.loadProvinces();
-            this.loadJobs();
+          if (resp.data.person.locality) {
+            this.localityId = resp.data.person.localityId === null ? null : resp.data.person.locality.id;
+            this.departmentId = resp.data.person.locality === null ? null : resp.data.person.locality.department.id;
+            this.provinceId = resp.data.person.locality === null ? null : resp.data.person.locality.department.province.id;
+            this.person.departmentId = this.departmentId;
+            this.person.localityId = this.localityId;
+            this.person.provinceId = this.provinceId;
+            this.jobId = resp.data.job ? resp.data.job.id : null;
+            this.employeeid = resp.data.id;
             this.loadDepartment(this.provinceId);
             this.loadLocalities(this.departmentId);
-
           }
           this.accion = 'EDICION';
           this.loading = false;
@@ -106,37 +108,50 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.provincs = null;
   }
   save(form?: NgForm) {
+    console.log(form.value, 'Employee');
+    
     if (form.value.id === '0') {
-      this.personService.create(form.value)
-        .subscribe((resp: any) => {
-          console.log(resp);
-
-          if (resp.success) {
-            const employee = new Employee(resp.data.id, form.value.position, null);
-            this._employeeSerivice.add(employee).subscribe((emp: any) => {
-                this.resetForm(form);
-                this.router.navigate(['person/persons']);
-            });
-          } else {
-            console.log('Se produjo un error!');
-
-          }
-
-        });
-    } else {
-      this.personService.update(form.value)
-      .subscribe(resp => {
-        if (resp.success) {
-          const employee = new Employee(resp.data.id, form.value.job, this.id); // this.router.navigate(['person/persons']);
-          this._employeeSerivice.update(employee).subscribe((emp: any) => {
-              this.resetForm(form);
-              this.router.navigate(['person/persons']);
-          });
-        } else {
-          console.log('Se produjo un error!');
-
-        }
+      this._employeeSerivice.add(form.value).subscribe((resp:any) => {
+        console.log(resp);
+        this.resetForm(form);
+        this.router.navigate(['person/persons']);
       });
+      // this.personService.create(form.value)
+      //   .subscribe((resp: any) => {
+      //     console.log(resp, 'employee');
+          
+      //     if (resp.success) {
+      //       const employee = new Employee(resp.data.id, form.value.jobId, null);
+      //       this._employeeSerivice.add(employee).subscribe((emp: any) => {
+      //           this.resetForm(form);
+      //           this.router.navigate(['person/persons']);
+      //       });
+      //     } else {
+      //       console.log('Se produjo un error!');
+
+      //     }
+
+      //   });
+    } else {
+      this._employeeSerivice.update(form.value).subscribe((resp: any) => {
+        console.log(resp);
+        this.router.navigate(['person/persons']);
+      });
+      // this.personService.update(form.value)
+      // .subscribe(resp => {
+      //   if (resp.success) {
+      //     console.log(resp);
+          
+      //     const employee = new Employee(resp.data.id, form.value.jobId, this.employeeid); // this.router.navigate(['person/persons']);
+      //     this._employeeSerivice.update(employee).subscribe((emp: any) => {
+      //         this.resetForm(form);
+      //         this.router.navigate(['person/persons']);
+      //     });
+      //   } else {
+      //     console.log('Se produjo un error!');
+
+      //   }
+      // });
     }
   }
   convertDateToString(dateToBeConverted: string) {
@@ -168,6 +183,8 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   loadJobs() {
     this._jobsService.list().subscribe((resp: any) => {
+      console.log(resp, 'jobs');
+      
       this.positions = resp.data;
     });
   }

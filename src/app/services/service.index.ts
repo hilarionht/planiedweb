@@ -1,8 +1,8 @@
+export { EmployeeService } from './employee/employee.service';
 export { PhoneService } from './phone/phone.service';
 export { PhoneTypeService } from './phoneType/phone-type.service';
 export { PhoneReferenceService } from './phoneReference/phone-reference.service';
 export { EmployeePositionService } from './employee/employee-position.service';
-export { DepartamentService } from './departament/departament.service';
 export { InstitutionService } from './institution/institution.service';
 export { SectorService } from './sector/sector.service';
 export { DepartmentService } from './department/department.service';

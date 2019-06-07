@@ -98,7 +98,7 @@
                                     <div class="from-group col-12">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <ngx-select [allowClear]="true" [items]="phonetypes" optionValueField="id" optionTextField="name" (removed)="removed($event)" placeholder="Seleccion Tipo" formControlName="phoneTypeId">
+                                                <ngx-select [items]="phonetypes" optionValueField="id" optionTextField="name" placeholder="Seleccion Tipo" formControlName="phoneTypeId" [collapse]="false">
                                                 </ngx-select>
                                             </div>
                                             <input class="form-control" (keypress)="keyPress($event)" formControlName="number" placeholder="Ingrese un numero" type="text">

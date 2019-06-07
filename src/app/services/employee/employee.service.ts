@@ -6,7 +6,7 @@ import { Employee } from '../../models/employee.model';
 import { Observable } from 'rxjs';
 import { Page } from '../../models/Page';
 import { ToasterService } from 'angular2-toaster';
-
+import { load } from '@angular/core/src/render3';
 @Injectable({
   providedIn: 'root'
 })
@@ -74,13 +74,19 @@ export class EmployeeService {
   }
 
   list( page: Page ) {
-    console.log(page);
-    
     // tslint:disable-next-line:max-line-length
     let url  = URL_SERVICIOS + `/employee/?isPaginate=true&paginate={"limit":${ page.limit},"numberPage":${ page.numberPage }}`;
-    url += `&filter={"relations":["person","person.locality","person.locality.department","person.locality.department.province","job"]}`;
+    if (page.prop) {
+      // tslint:disable-next-line:max-line-length
+      url += `&filter={"relations":["person","person.locality","person.locality.department","person.locality.department.province","job"],"order":{"${ page.prop }":"${ page.dir}"}}`;
+    } else {
+      url += `&filter={"relations":["person","person.locality","person.locality.department","person.locality.department.province","job"]}`;
+    }
+    console.log(url);
+    
+    // ,"order":{"${ page.prop }":"${ page.dir}"}
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );
-  }//url += `?filter={"relations":["ambit","sector","region","locality", "locality.department","locality.department.province"]}`;
+  }// url += `?filter={"relations":["ambit","sector","region","locality", "locality.department","locality.department.province"]}`;
   employeeList( page: Page ) {
     let url  = URL_SERVICIOS + `/employee/?paginate={"limit":${ page.limit},"numberPage":${ page.numberPage }}&isPaginate=true`;
     url += `&filter={"relations":["person","person.locality","person.locality.department","person.locality.department.province","job"]}`;

@@ -1,3 +1,4 @@
+import { LoaderService } from './services/interceptors/loader.service';
 import { Component, HostBinding, OnInit, isDevMode } from '@angular/core';
 
 import { SettingsService } from './core/settings/settings.service';
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
         dateInputFormat: 'DD-MM-YYYY'
     };
   locale = 'es';
-    constructor(public settings: SettingsService, private _localeService: BsLocaleService) { }
+    constructor(public settings: SettingsService, private _localeService: BsLocaleService, loaderService: LoaderService) { }
 
     ngOnInit() {
         this._localeService.use('es');

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home/home.component';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginGuard } from '../../services/service.index';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', component: HomeComponent , canActivate: [LoginGuard]},
 ];
 
 @NgModule({

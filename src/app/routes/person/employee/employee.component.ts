@@ -57,19 +57,15 @@ export class EmployeeComponent implements OnInit {
         this.loading = true;
         this._employeeService.getById(this.id).subscribe((resp: any) => {
           // console.log(resp,'person');
-          
           for (let i = 0; i < resp.data.phones.length; i++) {
             this.addContact();
           }
           this.form.patchValue({
                 person: resp.data.person !== null  ? resp.data.person : null,
                 id: resp.data.id,
-                // jobId: resp.data.jobId,
                 phones: resp.data.phones
           });
           if (resp.data.person && resp.data.person.locality !== undefined) {
-                // this.loadLocalities(resp.data.person.localitiId);
-                // this.loadDepartment(resp.data.person.locality.department.id);
                 this._localityService.listbyDepartment(resp.data.person.locality.department.id).subscribe((response: any) => {
                   this.localities = response.data[0].localities;
                 });

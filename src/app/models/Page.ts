@@ -8,4 +8,6 @@ export class Page {
     totalPages: number = 0;
     //The current page number
     numberPage: number = 0;
+    prop: string = '';
+    dir: string = '';
 }

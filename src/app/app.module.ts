@@ -1,3 +1,4 @@
+import { LoaderComponent } from './components/loader/loader.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
@@ -17,6 +18,9 @@ import { ServiceModule } from './services/service.module';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { LoaderService } from './services/service.index';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 defineLocale('es', esLocale);
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -30,7 +34,8 @@ export function getDatepickerConfig(): BsDatepickerConfig {
 }
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        LoaderComponent
     ],
     imports: [
         HttpClientModule,
@@ -50,7 +55,7 @@ export function getDatepickerConfig(): BsDatepickerConfig {
             }
         })
     ],
-    providers: [],
+    providers: [LoaderService, { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

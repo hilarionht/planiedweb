@@ -1,3 +1,4 @@
+<div *ngIf="loaderService.showLoader" class="loader"></div>
 <div class="content-heading">
     <div>Administración de Personal
         <small>Administre su Personal existente</small></div>
@@ -78,14 +79,28 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <input type="text" placeholder="ingrese informacion a buscar" class="form-control">
-            </div>
+
 
 
             <div class="card-body">
-                <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalEntities" [offset]="page.numberPage"
-                    [limit]="page.limit" (page)='setPage($event)'>
+                <input type="hidden" [(ngModel)]="dir" name="dir" #name="ngModel">
+                <input type="hidden" [(ngModel)]="prop" name="prop" #name="ngModel">
+
+
+
+                <div class="col-md-10"> <input type="text" placeholder="ingrese informacion a buscar" class="form-control"></div>
+
+                <div class="">
+                    <div class="">
+                        <span class="" id="filas">Mostrando: </span>
+
+                        <select [(ngModel)]="page.limit" (ngModelChange)="onPageSizeChanged($event)" class="">
+                                <option *ngFor="let opt of limitOptions" [ngValue]="opt.value">{{opt.key}}</option>
+                        </select></div>
+                    <!-- <input class="form-control" id="basic-url" type="text" aria-describedby="basic-addon3" /> -->
+                </div>
+                <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [loadingIndicator]="loading" (sort)="onSort($event)" [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='page.limit' [rows]='rows' [rowHeight]="'auto'" [externalPaging]="true"
+                    [count]="page.totalEntities" [offset]="page.numberPage" [limit]="page.limit" (page)='setPage($event)'>
                     <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
                     <ngx-datatable-column name="APELLIDO" prop="person.firstname"></ngx-datatable-column>
                     <ngx-datatable-column name="NOMBRE" prop="person.lastname"></ngx-datatable-column>

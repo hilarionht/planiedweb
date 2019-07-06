@@ -80,6 +80,11 @@ const Catalogs = {
             text: 'Referencias Telefonicas',
             role: [] = [1, 2],
             link: '/catalog/phoneReference'
+        },
+        {
+            text: 'Level ',
+            role: [] = [1, 2],
+            link: '/catalog/level'
         }
         // {
         //     text: 'Departamento',

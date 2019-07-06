@@ -29,14 +29,9 @@ export const routes = [
             { path: 'extras', loadChildren: './extras/extras.module#ExtrasModule' },
             { path: 'catalog', loadChildren: './catalog/catalog.module#CatalogModule' },
             { path: 'config', loadChildren: './user/user.module#UserModule' },
-            {
-                path: 'person',
-                loadChildren: './person/person.module#PersonModule',
-                CanActivate: [LoginGuard], CanActivateChild: [LoginGuard]
-            },
-            {
-                path: 'institution',
-                loadChildren: './institution/institution.module#InstitutionModule',
+            { path: 'person', loadChildren: './person/person.module#PersonModule',
+                    CanActivate: [LoginGuard], CanActivateChild: [LoginGuard] },
+            { path: 'institution', loadChildren: './institution/institution.module#InstitutionModule',
                 CanActivate: [LoginGuard], CanActivateChild: [LoginGuard]
             }
         ]

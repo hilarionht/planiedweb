@@ -20,6 +20,7 @@ export class AmbitComponent implements OnInit {
   frmAU: FormGroup;
   ambit: Ambit;
   title = 'CREAR';
+  loading = false;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   constructor(
     public _ambitService: AmbitService,
@@ -89,33 +90,37 @@ export class AmbitComponent implements OnInit {
   }
   editbyid(content, id: string) {
     this.ambit = new Ambit('', '0');
+    this.loading = true;
     if (id) {
       this._ambitService.get(id).subscribe((resp: any) => {
         this.ambit = resp.data;
-        this.frmAU.setValue(resp.data);
-      });
+        this.frmAU.patchValue(resp.data);
+        this.loading = false;
+        this.modalService
+          .open(content, {
+            ariaLabelledBy: 'modal-basic-title',
+            backdropClass: 'light-blue-backdrop'
+          })
+          .result.then(result => {}, reason => {});
+          });
     }
-    this.modalService
-      .open(content, {
-        ariaLabelledBy: 'modal-basic-title',
-        backdropClass: 'light-blue-backdrop'
-      })
-      .result.then(result => {}, reason => {});
   }
   confirm(pdelete, id: any) {
     this.title = 'ELIMINAR';
+    this.loading = true;
     this.ambit = new Ambit('', '0');
     if (id) {
       this._ambitService.get(id).subscribe((resp: any) => {
         this.ambit = resp.data;
+        this.loading = false;
+        this.modalService
+            .open(pdelete, {
+              ariaLabelledBy: 'modal-basic-title',
+              backdropClass: 'light-blue-backdrop'
+            })
+            .result.then(() => {}, () => {});
       });
     }
-    this.modalService
-      .open(pdelete, {
-        ariaLabelledBy: 'modal-basic-title',
-        backdropClass: 'light-blue-backdrop'
-      })
-      .result.then(() => {}, () => {});
   }
   delete(pdelete, id: string) {
     this._ambitService.delete(id).subscribe((resp: any) => {

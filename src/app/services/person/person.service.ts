@@ -17,6 +17,7 @@ export class PersonService {
   ) { }
   create( person: Person ) {
     const url = URL_SERVICIOS + '/person/';
+    // tslint:disable-next-line:max-line-length
     return this.http.post(url, person ,  { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)})
       .map((resp: any) => {
         this.toasterService.pop('success', 'Guardar Persona', 'Guardado Exitosamente');

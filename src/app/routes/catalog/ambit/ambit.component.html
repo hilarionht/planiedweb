@@ -31,7 +31,7 @@
     </div>
 </div>
 <ng-template #content let-modal>
-    <form [formGroup]="frmAU" (ngSubmit)="save($event, frmAU.value)" class="form-validate mb-3" novalidate="">
+    <form [formGroup]="frmAU" (ngSubmit)="save($event, content)" class="form-validate mb-3" novalidate="">
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">ÁMBITO</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -80,7 +80,7 @@
         <div class="modal-body">
             <input type="hidden" name="id" #id="ngModel" [(ngModel)]="ambit.id" />
             <div class="form-group row">
-                <label class="col-xl-2 col-form-label">Nombre</label>
+                <label class="col-xl-2 col-form-label">NOMBRE</label>
                 <div class="col-xl-10">
                     <div class="input-group">
                         <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="ambit.name" placeholder="nombre" aria-describedby="inputGroupPrepend2" readonly="readonly" />

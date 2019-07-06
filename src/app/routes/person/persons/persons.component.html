@@ -100,7 +100,7 @@
                     <!-- <input class="form-control" id="basic-url" type="text" aria-describedby="basic-addon3" /> -->
                 </div>
                 <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [loadingIndicator]="loading" (sort)="onSort($event)" [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='page.limit' [rows]='rows' [rowHeight]="'auto'" [externalPaging]="true"
-                    [count]="page.totalEntities" [offset]="page.numberPage" [limit]="page.limit" (page)='setPage($event)'>
+                    [count]="page.totalEntities" [offset]="page.numberPage" [limit]="page.limit" (page)='setPage($event)' [externalSorting]="true">
                     <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
                     <ngx-datatable-column name="APELLIDO" prop="person.firstname"></ngx-datatable-column>
                     <ngx-datatable-column name="NOMBRE" prop="person.lastname"></ngx-datatable-column>

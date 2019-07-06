@@ -17,6 +17,7 @@ import { ToasterService } from 'angular2-toaster';
 import { PhoneTypeComponent } from './phone-type/phone-type.component';
 import { PhoneReferenceComponent } from './phone-reference/phone-reference.component';
 import { TagInputModule } from 'ngx-chips';
+import { LevelComponent } from './level/level.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'catalog' },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'phoneType', component: PhoneTypeComponent , canActivate: [LoginGuard]},
   { path: 'phoneReference', component: PhoneReferenceComponent , canActivate: [LoginGuard]},
   { path: 'catalog', component: CatalogComponent , canActivate: [LoginGuard]},
+  { path: 'level', component: LevelComponent , canActivate: [LoginGuard]},
   { path: 'department/:id', component: DepartamentComponent , canActivate: [LoginGuard]},
   { path: 'locality/:id/:provinceId', component: LocalityComponent , canActivate: [LoginGuard]}
 ];
@@ -51,7 +53,8 @@ const routes: Routes = [
     DepartamentComponent,
     LocalityComponent,
     PhoneTypeComponent,
-    PhoneReferenceComponent
+    PhoneReferenceComponent,
+    LevelComponent
   ],
   exports: [
     RouterModule

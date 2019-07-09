@@ -24,7 +24,7 @@ export class LevelComponent implements OnInit {
   reorderable: boolean = true;
   swapColumns: boolean = false;
   rows = [];
-  title = 'LEVEL';
+  title = 'Nivel';
   level: Level;
   form: FormGroup;
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -40,7 +40,6 @@ export class LevelComponent implements OnInit {
   }
   setPage(pageInfo) {
     this.page.numberPage = pageInfo.offset + 1;
-
     this.page.dir = this.dir;
     this.page.prop = this.prop;
     console.log(this.page);
@@ -100,13 +99,13 @@ export class LevelComponent implements OnInit {
       updatedAt: new FormControl('')
     });
     if (id) {
-      this.levelService
-        .findOne(id)
-        .subscribe((resp: any) => (this.level = resp.data));
+      this.levelService.findOne(id).subscribe((resp: any) => {
+        this.level = resp.data;
+        this.modalService.open(content).result.then();
+      });
+    } else {
+      this.modalService.open(content).result.then();
     }
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
-      }, (reason) => {
-    });
   }
   editbyid(content, id: number) {
     this.loading = true;

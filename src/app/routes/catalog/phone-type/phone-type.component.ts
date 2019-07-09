@@ -42,7 +42,6 @@ export class PhoneTypeComponent implements OnInit {
     this.setPage({ offset: 0 });
   }
   save($ev, value: any) {
-
     $ev.preventDefault();
     // tslint:disable-next-line:forin
     for (const c in this.formPhoneType.controls) {
@@ -52,16 +51,17 @@ export class PhoneTypeComponent implements OnInit {
       if (this.formPhoneType.value.id === '0') {
         this._phonetypeService.create(this.formPhoneType.value).subscribe(resp => {
           this.setPage({offset: 0 });
+          this.formPhoneType.reset();
+          this.modalService.dismissAll();
         });
       } else {
         this._phonetypeService.update(this.formPhoneType.value).subscribe(resp => {
           this.setPage({offset: 0 });
+          this.formPhoneType.reset();
+          this.modalService.dismissAll();
         });
       }
-      this.formPhoneType.reset();
-      this.modalService.dismissAll();
     }
-    console.log(this.formPhoneType.value);
   }
 
   open(content, id: string) {
@@ -81,19 +81,20 @@ export class PhoneTypeComponent implements OnInit {
     });
   }
   editbyid(content, id: string) {
+    this.title = 'EDITAR';
     this.phonetype = new PhoneType('', '0');
     if (id) {
       this._phonetypeService.get(id).subscribe((resp: any) => {
         this.phonetype = resp.data;
-        this.formPhoneType.setValue(resp.data);
-      });
+        this.formPhoneType.patchValue(resp.data);
+        this.modalService
+            .open(content, {
+              ariaLabelledBy: 'modal-basic-title',
+              backdropClass: 'light-blue-backdrop'
+            })
+            .result.then(result => {}, reason => {});
+            });
     }
-    this.modalService
-      .open(content, {
-        ariaLabelledBy: 'modal-basic-title',
-        backdropClass: 'light-blue-backdrop'
-      })
-      .result.then(result => {}, reason => {});
   }
   confirm(pdelete, id: any) {
     this.title = 'ELIMINAR';
@@ -101,14 +102,14 @@ export class PhoneTypeComponent implements OnInit {
     if (id) {
       this._phonetypeService.get(id).subscribe((resp: any) => {
         this.phonetype = resp.data;
+        this.modalService
+            .open(pdelete, {
+              ariaLabelledBy: 'modal-basic-title',
+              backdropClass: 'light-blue-backdrop'
+            })
+            .result.then(() => {}, () => {});
       });
     }
-    this.modalService
-      .open(pdelete, {
-        ariaLabelledBy: 'modal-basic-title',
-        backdropClass: 'light-blue-backdrop'
-      })
-      .result.then(() => {}, () => {});
   }
   delete(pdelete, id: string) {
     this._phonetypeService.delete(id).subscribe((resp: any) => {

@@ -45,40 +45,49 @@ export class PhoneReferenceComponent implements OnInit {
       form.value.name = form.value.name.toUpperCase();
       this._phoneReferenceService.update(form.value).subscribe(res => {
         this.setPage({offset: 0 });
+        this.modalService.dismissAll();
       });
     } else {
       form.value.name = form.value.name.toUpperCase();
       this._phoneReferenceService.create(form.value).subscribe(res => {
         this.setPage({offset: 0 });
+        this.modalService.dismissAll();
       });
     }
-    this.modalService.dismissAll();
+    
   }
   open(content, id: string) {
     this.phoneReference =  new PhoneReference('', '0');
     if (id) {
       this._phoneReferenceService
         .get(id)
-        .subscribe((resp: any) => (this.phoneReference = resp.data));
-    }
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+        .subscribe((resp: any) => {this.phoneReference = resp.data;
+          // tslint:disable-next-line:max-line-length
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+          }, (reason) => {
+        });
+        });
+    } else {
+      // tslint:disable-next-line:max-line-length
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
       }, (reason) => {
     });
+    }
   }
   editbyid(content, id: string) {
     this.phoneReference = new PhoneReference('', '0');
     if (id) {
       this._phoneReferenceService.get(id).subscribe((resp: any) => {
         this.phoneReference = resp.data;
-        this.formPhoneReference.setValue(resp.data);
-      });
-    }
-    this.modalService
+        this.formPhoneReference.patchValue(resp.data);
+        this.modalService
       .open(content, {
         ariaLabelledBy: 'modal-basic-title',
         backdropClass: 'light-blue-backdrop'
       })
       .result.then(result => {}, reason => {});
+      });
+    }
   }
   confirm(pdelete, id: any) {
     this.title = 'ELIMINAR';
@@ -86,20 +95,21 @@ export class PhoneReferenceComponent implements OnInit {
     if (id) {
       this._phoneReferenceService.get(id).subscribe((resp: any) => {
         this.phoneReference = resp.data;
+        this.modalService
+        .open(pdelete, {
+          ariaLabelledBy: 'modal-basic-title',
+          backdropClass: 'light-blue-backdrop'
+        })
+        .result.then(() => {}, () => {});
       });
     }
-    this.modalService
-      .open(pdelete, {
-        ariaLabelledBy: 'modal-basic-title',
-        backdropClass: 'light-blue-backdrop'
-      })
-      .result.then(() => {}, () => {});
   }
   delete(pdelete, id: string) {
     this._phoneReferenceService.delete(id).subscribe((resp: any) => {
       this.setPage({ offset: 0 });
+      this.modalService.dismissAll(pdelete);
     });
-    this.modalService.dismissAll(pdelete);
+  
   }
   setPage(pageInfo) {
     this.page.numberPage = pageInfo.offset + 1;

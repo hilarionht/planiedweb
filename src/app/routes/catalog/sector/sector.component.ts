@@ -32,11 +32,16 @@ export class SectorComponent implements OnInit {
     this.title = 'EDITAR';
     this.sector = new Sector(null, '0', null, null);
     if (id) {
-      this.sectorService.get(id).subscribe((resp: any) => this.sector = resp.data);
-    }
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
-    }, (reason) => {
+      this.sectorService.get(id).subscribe((resp: any) =>
+        {
+          this.sector = resp.data;
+          // tslint:disable-next-line:max-line-length
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+            }, (reason) => {
+          });
     });
+    }
+  
   }
   confirm(pdelete, id: any) {
     this.title = 'ELIMINAR';

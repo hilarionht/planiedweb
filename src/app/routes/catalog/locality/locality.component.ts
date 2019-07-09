@@ -68,15 +68,16 @@ export class LocalityComponent implements OnInit {
       this._localityService.update(form.value).subscribe(res => {
         this.resetForm(form);
         this.getLocalitys();
+        this.modalService.dismissAll();
       });
     } else {
       form.value.name = form.value.name.toUpperCase();
       this._localityService.create(form.value).subscribe(res => {
         this.resetForm(form);
         this.getLocalitys();
+        this.modalService.dismissAll();
       });
     }
-    this.modalService.dismissAll(this.CloseModal);
   }
   getLocalitys() {
     this._localityService
@@ -98,14 +99,14 @@ export class LocalityComponent implements OnInit {
     if (id) {
       this._localityService
         .get(id)
-        .subscribe((resp: any) => (this.locality = resp.data));
+        .subscribe((resp: any) => {
+          this.locality = resp.data;
+          this.modalService
+              .open(content)
+              .result.then();
+        });
     }
-    this.modalService
-      .open(content, {
-        ariaLabelledBy: 'modal-basic-title',
-        backdropClass: 'light-blue-backdrop'
-      })
-      .result.then(result => {}, reason => {});
+    
   }
   resetForm(form?: NgForm) {
     if (form) {

@@ -1,4 +1,3 @@
-import { ProfilerService } from '../../../.history/src/app/services/interceptors/profiler.service_20190606220442';
 export { LoaderService } from './interceptors/loader.service';
 export { ProfilerService } from './interceptors/profiler.service';
 export { EmployeeService } from './employee/employee.service';

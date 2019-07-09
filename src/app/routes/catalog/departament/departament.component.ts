@@ -48,21 +48,11 @@ temp = [];
           this.departments = resp.data[0].departments;
         });
       }
-
     });
    }
 
   ngOnInit() {
-    // this._depService.list().subscribe((resp:any) => {
-    //   this.departments = resp.data;
-    // });
     this.department  = new Department(null, this.provinceid, '0');
-   // this.province = new Province("","","")
-    // this._provService.list().subscribe(
-    //   (resp:any)=> {
-    //     this.provincs = resp.data;
-    //   }
-    // );
   }
   add() {
     const date = new Date();
@@ -81,18 +71,18 @@ temp = [];
       .subscribe(res => {
         this.resetForm(form);
         this.getDepartaments();
+        this.modalService.dismissAll(this.CloseModal);
       });
     } else {
       this._depService.create(form.value)
-        .subscribe(res => {
+        .subscribe((res: any) => {
           this.resetForm(form);
           this.getDepartaments();
+          this.modalService.dismissAll(this.CloseModal);
         });
     }
-    this.modalService.dismissAll(this.CloseModal);
   }
   getDepartaments() {
-
     this._depService.listbyProvince(this.provinceid).subscribe((resp: any) => {
       this.province = resp.data[0];
           this.departments = resp.data[0].departments;
@@ -121,10 +111,10 @@ temp = [];
   }
   delete(pdelete, id: string) {
     this._depService.delete(id).subscribe((resp: any) => {
-    this.setPage({ offset: 0 });
-    this.getDepartaments();
+      this.setPage({ offset: 0 });
+      this.getDepartaments();  
+      this.modalService.dismissAll(pdelete);
     });
-    this.modalService.dismissAll(pdelete);
   }
   setPage(pageInfo) {
   // this.page.numberPage = pageInfo.offset + 1;
@@ -146,13 +136,16 @@ temp = [];
   editbyid(content, id: string) {
     this.department = new Province(null, '0', null, null);
     if (id) {
-      this._depService.get(id).subscribe((resp: any) => this.department = resp.data);
+      this._depService.get(id).subscribe((resp: any) => {
+        this.department = resp.data;
+        // tslint:disable-next-line:max-line-length
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+          // this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+          // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      });
     }
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',  backdropClass: 'light-blue-backdrop'}).result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
   resetForm(form?: NgForm) {
     if (form) {

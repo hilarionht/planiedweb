@@ -9,7 +9,7 @@ import { User } from './../../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import 'rxjs/add/operator/map';  // (immportar solo lo que se use)
 import 'rxjs/add/operator/catch';  // (immportar solo lo que se use)
 
@@ -20,6 +20,7 @@ import * as jwt_decode from 'jwt-decode';
 import { Role } from '../../models/role.model';
 import { ToasterService, ToasterConfig } from 'angular2-toaster/angular2-toaster';
 import { Page } from '../../models/Page';
+import { map, catchError } from 'rxjs/operators';
 @Injectable()
 export class UserService {
 
@@ -90,7 +91,7 @@ export class UserService {
     this.role = rol;
   }
 
-  login(user: User): Observable<any> {
+  login2(user: User): Observable<any> {
     const url = URL_SERVICIOS + '/auth/login';
     return this.http.post(url, user)
               .map( (resp: any) => {
@@ -105,6 +106,25 @@ export class UserService {
                 // throw (new Error(err.error.error));
                 return Observable.throw( err );
               });
+  }
+  login(user: User): Observable<any> {
+    const url = URL_SERVICIOS + '/auth/login';
+    return this.http.post(url, user).pipe( 
+      map( (resp: any) => {
+        console.log(resp);
+        if (resp.success === true) {
+          const tokenInfo = this.getDecodedAccessToken(resp.data.token); // decode token
+          const expireDate = tokenInfo.exp; // get token expiration dateTime
+          this.saveStorage(tokenInfo.id, resp.data.token, tokenInfo.user, tokenInfo.user.role);
+          return true;
+        }
+      }),
+      catchError( err => {
+        console.warn(err);
+        this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error ');
+        return throwError('Error de Servicio');
+      } )
+    );
   }
 
   loginGoogle( token: string ) {

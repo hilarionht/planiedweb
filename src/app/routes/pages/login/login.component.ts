@@ -30,12 +30,15 @@ export class LoginComponent implements OnInit {
 
     submitForm($ev, value: any) {
         $ev.preventDefault();
+        // tslint:disable-next-line:forin
         for (let c in this.valForm.controls) {
             this.valForm.controls[c].markAsTouched();
         }
         if (this.valForm.valid) {
-            let user = new User( value.username, value.password, null,null,null,null,null,null,null,null);
-            this._userService.login(user).subscribe(() => this.router.navigate(['/']));
+            let user = new User( value.username, value.password, null, null, null, null, null, null, null, null);
+            this._userService.login(user).subscribe(() => { this.router.navigate(['/']); } , (err) => {
+                console.log('Error en el Componente');
+            });
         }
     }
 

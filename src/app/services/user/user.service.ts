@@ -6,7 +6,7 @@ import { VerificaTokenGuard } from './../guards/verifica-token.guard';
 import { SubirArchivoService } from './../subir-archivo/subir-archivo.service';
 import { Injectable } from '@angular/core';
 import { User } from './../../models/user.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 
 import { Observable, throwError } from 'rxjs';
@@ -118,12 +118,7 @@ export class UserService {
           this.saveStorage(tokenInfo.id, resp.data.token, tokenInfo.user, tokenInfo.user.role);
           return true;
         }
-      }),
-      catchError( err => {
-        console.warn(err);
-        this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error ');
-        return throwError('Error de Servicio');
-      } )
+      })
     );
   }
 
@@ -208,6 +203,11 @@ export class UserService {
     url += `?filter={"relations":["role"]}`;
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} )
                     .map(resp => resp);
+  }
+  manejarError(err: HttpErrorResponse) {
+    console.warn(err);
+    this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error ');
+    return throwError('Error de Servicio');
   }
 
 }

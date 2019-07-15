@@ -28,8 +28,8 @@ export class LoaderInterceptor implements HttpInterceptor {
     );
   }
   manejarError(err: HttpErrorResponse) {
-    console.warn(err);
-    //this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error en el servicio');
+    //console.warn(err);
+    this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error en el servicio');
     return throwError('Error de Servicio');
   }
 }

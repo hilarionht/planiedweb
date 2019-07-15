@@ -82,7 +82,7 @@ const Catalogs = {
             link: '/catalog/phoneReference'
         },
         {
-            text: 'Level ',
+            text: 'Nivel de Estudios',
             role: [] = [1, 2],
             link: '/catalog/level'
         }
@@ -509,13 +509,13 @@ export const menu = [
     Institutions,
     Persons,
     Home,
-    Dashboard,
+    // Dashboard,
     // Widgets,
     // headingComponents,
     // Elements,
     // Forms,
     // Charts,
-    Tables,
+    // Tables,
     // Maps,
     // headingMore,
     // Pages,

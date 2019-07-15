@@ -13,7 +13,7 @@
             <div class="card-body">
                 <input type='text' class='form-control' placeholder='Escriba el nombre del ' (keyup)='search($event)' />
                 <ngx-datatable #table class='bootstrap no-detail-row fullscreen' [columnMode]="'force'" [footerHeight]='50' [rowHeight]="'auto'" [limit]='10' [rows]='rows' [rowHeight]="'auto'" [externalPaging]='false'>
-                    <ngx-datatable-column name='ID' prop='id' [width]="50"></ngx-datatable-column>
+                    <ngx-datatable-column name='ID' prop='id' [width]="10"></ngx-datatable-column>
                     <ngx-datatable-column name='NOMBRE' prop='name'></ngx-datatable-column>
                     <ngx-datatable-column name='CUE' prop='cue'></ngx-datatable-column>
                     <ngx-datatable-column name='REGION' prop='region.name'>
@@ -23,7 +23,7 @@
                     </ngx-datatable-column>
                     <ngx-datatable-column name='SECTOR' prop='sector.name'></ngx-datatable-column>
                     <ngx-datatable-column name='AMBITO' prop='ambit.name'></ngx-datatable-column>
-                    <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='100'>
+                    <ngx-datatable-column name='ACCIONES' sortable='false' prop='id' [width]='80'>
                         <ng-template let-row='provs' let-value='value' ngx-datatable-cell-template>
                             <button class='btn btn-sm btn-danger' (click)='confirm(pdelete,value)'>
                           <i class='fas fa-trash-alt'></i>

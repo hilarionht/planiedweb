@@ -32,7 +32,7 @@ describe('Component: Offsidebar', () => {
 
     it('should create an instance', async(inject([SettingsService, ThemesService, TranslatorService],
         (settingsService, themesService, translatorService) => {
-            let component = new OffsidebarComponent(settingsService, themesService, translatorService);
+            let component = new OffsidebarComponent(settingsService, themesService, translatorService, null);
             expect(component).toBeTruthy();
         })));
 });

@@ -41,7 +41,7 @@ temp = [];
     this.routeActivate.params.subscribe( param => {
       this.id = param['id'];
       this.provinceid = this.id;
-      console.log(this.id);
+      // console.log(this.id);
       if (this.id) {
         this._depService.listbyProvince(this.id).subscribe( (resp: any) => {
           this.province = resp.data[0];

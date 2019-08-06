@@ -1,6 +1,8 @@
+import { User } from './../../../models/user.model';
 import { Component, OnInit } from '@angular/core';
 
 import { UserblockService } from './userblock.service';
+import { UserService } from '../../../services/service.index';
 
 @Component({
     selector: 'app-userblock',
@@ -8,12 +10,16 @@ import { UserblockService } from './userblock.service';
     styleUrls: ['./userblock.component.scss']
 })
 export class UserblockComponent implements OnInit {
-    user: any;
-    constructor(public userblockService: UserblockService) {
+    user: User;
 
-        this.user = {
-            picture: 'assets/img/user/01.jpg'
-        };
+    constructor(public userblockService: UserblockService, public _userService: UserService) {
+
+        // this.user = {
+        //     picture: 'assets/img/user/01.jpg'
+        // };
+        this.user = _userService.user;
+        console.log(this.user);
+        
     }
 
     ngOnInit() {

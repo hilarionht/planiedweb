@@ -154,10 +154,6 @@ export class RolesComponent implements OnInit {
     }
   }
 
-
-  public onCellClick(data: any): any {
-    console.log(data);
-}
   editbyid(content, id: string) {
     this.title = 'EDITAR';
     this.role = new Role(null, '0', null, null);

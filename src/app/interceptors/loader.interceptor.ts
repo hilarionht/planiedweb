@@ -24,12 +24,19 @@ export class LoaderInterceptor implements HttpInterceptor {
     return next.handle(reqClone).pipe(
       // delay(10),
       catchError(this.manejarError),
-      finalize(() => this.loaderService.hide())
+      finalize(() => {
+        this.loaderService.hide();
+        // console.log(this);
+       })
     );
   }
   manejarError(err: HttpErrorResponse) {
-    //console.warn(err);
-    this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error en el servicio');
-    return throwError('Error de Servicio');
+    console.warn(err.error.message);
+    if (err.error.message === undefined) {
+      alert('Error de servicio, consulte con el administrador');
+      return throwError('Error de servicio, consulte con el administrador.');
+    }
+    //this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error en el servicio');
+    return throwError(err.error.message);
   }
 }

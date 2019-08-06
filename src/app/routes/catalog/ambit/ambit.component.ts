@@ -49,8 +49,8 @@ export class AmbitComponent implements OnInit {
     });
   }
   save($ev, value: any) {
-    console.log(this.frmAU.value);
-    console.log(value);
+    // console.log(this.frmAU.value);
+    // console.log(value);
     $ev.preventDefault();
     // tslint:disable-next-line:forin
     for (const c in this.frmAU.controls) {
@@ -69,7 +69,7 @@ export class AmbitComponent implements OnInit {
       this.frmAU.reset();
       this.modalService.dismissAll();
     }
-    console.log(this.frmAU.value);
+    // console.log(this.frmAU.value);
   }
 
   open(content, id: string) {

@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
     navCollapsed = true; // for horizontal layout
     menuItems = []; // for horizontal layout
-
+    notificacioens = 0;
     isNavSearchVisible: boolean;
     @ViewChild('fsbutton') fsbutton;  // the fullscreen button
 
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
                 el.className = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
         });
     }
-
+// visibility user image
     toggleUserBlock(event) {
         event.preventDefault();
         this.userblockService.toggleVisibility();

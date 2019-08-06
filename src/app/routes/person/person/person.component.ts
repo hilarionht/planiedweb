@@ -67,7 +67,7 @@ export class PersonComponent implements OnInit, OnDestroy {
         this._employeeSerivice.getById(this.id).subscribe((resp: any) => {
           this.addperson = false;
           const lperson = resp.data.person;
-          console.log(resp, 'data person');
+          // console.log(resp, 'data person');
           this.loadProvinces();   
           this.loadJobs();
          // lperson.birthday = this.convertDateToString(resp.data.person.birthday);
@@ -108,11 +108,11 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.provincs = null;
   }
   save(form?: NgForm) {
-    console.log(form.value, 'Employee');
+    // console.log(form.value, 'Employee');
     
     if (form.value.id === '0') {
       this._employeeSerivice.add(form.value).subscribe((resp:any) => {
-        console.log(resp);
+        // console.log(resp);
         this.resetForm(form);
         this.router.navigate(['person/persons']);
       });
@@ -134,7 +134,7 @@ export class PersonComponent implements OnInit, OnDestroy {
       //   });
     } else {
       this._employeeSerivice.update(form.value).subscribe((resp: any) => {
-        console.log(resp);
+        // console.log(resp);
         this.router.navigate(['person/persons']);
       });
       // this.personService.update(form.value)
@@ -183,7 +183,7 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   loadJobs() {
     this._jobsService.list().subscribe((resp: any) => {
-      console.log(resp, 'jobs');
+      // console.log(resp, 'jobs');
       
       this.positions = resp.data;
     });

@@ -71,8 +71,6 @@ export class UserComponent implements OnInit {
       this.user = new User(null,null,null,null,true,null,null,null,null,this.id);
       if(this.id != '0'){
         this.userService.getById(this.id).subscribe((user:any) => {
-          console.log(user);
-          
           this.user = user.data[0];
           this.rol = user.data[0].role;
           // this.user.role_id = this.rol.id;
@@ -90,9 +88,9 @@ submitForm($ev, value: any) {
             this.userForm.controls[c].markAsTouched();
         }
         if (this.userForm.valid) {
-            console.log('Valid!');
+            // console.log('Valid!');
         }
-        console.log(value);
+        // console.log(value);
     }
 
     minWords(checkValue): ValidatorFn {
@@ -116,7 +114,7 @@ submitForm($ev, value: any) {
   }
   addUser(form?:NgForm){
     // console.log('clicked'+ this.id, 'FormValue: '+ form.value.id);
-    console.log(form.value);
+    // console.log(form.value);
     
     if(form.value.id ==="0") {
       this.userService.create(form.value)

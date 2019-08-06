@@ -1,3 +1,4 @@
+import { PipesModule } from './../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 
 import { LayoutComponent } from './layout.component';
@@ -13,7 +14,8 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
-        SharedModule
+        SharedModule,
+        PipesModule
     ],
     providers: [
         UserblockService

@@ -26,19 +26,18 @@ export class PagingServerComponent implements OnInit {
 
   setPage(pageInfo) {
     this.page.numberPage = pageInfo.offset + 1;
-    console.log('PAGE server: ' , this.page);
+    // console.log('PAGE server: ' , this.page);
     this.provinceService.pagin(this.page).subscribe((resp: any) => {
       this.rows = resp.data.entities;
       this.temp = resp.data.entities;
       this.page = resp.data;
-      console.log('date return: ', resp);
+      // console.log('date return: ', resp);
       this.page.numberPage = resp.data.numberPage - 1;
     });
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
-    console.log(val);
-    
+    //console.log(val);
     // filter our data
     const temp = this.temp.filter(function(d) {
       return d.name.toLowerCase().indexOf(val) !== -1 || !val;

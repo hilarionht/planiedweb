@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         if (this.valForm.valid) {
             let user = new User( value.username, value.password, null, null, null, null, null, null, null, null);
             this._userService.login(user).subscribe(() => { this.router.navigate(['/']); } , (err) => {
-                console.log('Error en el Componente');
+                // console.log('Error en el Componente');
                 this.toasterService.pop('warning', 'Error de Servicio', 'Se produjo un error');
             });
         }

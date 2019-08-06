@@ -69,9 +69,9 @@ export class PersonsComponent implements OnInit {
 
     this.page.dir = this.dir;
     this.page.prop = this.prop;
-    console.log(this.page);
+    // console.log(this.page);
     this._empleyeeService.list(this.page).subscribe((resp: any) => {
-       //console.log(resp);
+       // console.log(resp);
         this.rows = resp.data.entities;
         this.temp = resp.data.entities;
         this.page = resp.data;

@@ -56,7 +56,7 @@ export class EmployeeComponent implements OnInit {
       if ( this.id !== '0' ) {
         this.loading = true;
         this._employeeService.getById(this.id).subscribe((resp: any) => {
-           console.log(resp,'person');
+          // console.log(resp,'person');
           for (let i = 0; i < resp.data.phones.length; i++) {
             this.addContact();
           }

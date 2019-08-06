@@ -27,7 +27,7 @@ export class EmployeeService {
         this.toasterService.pop('success', 'GUARDAR EMPLEADO', 'Guardado con Exitos!');
         return resp;
       }).catch( err => {
-        console.log('create', err.error.message);
+        // console.log('create', err.error.message);
         const errorcause = err.error.message;
         this.toasterService.pop('warning', 'Error al Guardar', err.error.message);
         return Observable.throw( err );
@@ -82,7 +82,7 @@ export class EmployeeService {
     } else {
       url += `&filter={"relations":["person","person.locality","person.locality.department","person.locality.department.province","job"]}`;
     }
-    console.log(url);
+    // console.log(url);
     
     // ,"order":{"${ page.prop }":"${ page.dir}"}
     return this.http.get( url, { headers: new HttpHeaders().append('Authorization', `Bearer ${  localStorage.getItem('token') }`)} );

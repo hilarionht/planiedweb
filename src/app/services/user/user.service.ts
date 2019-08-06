@@ -98,6 +98,7 @@ export class UserService {
                 if (resp.success === true) {
                   const tokenInfo = this.getDecodedAccessToken(resp.data.token); // decode token
                   const expireDate = tokenInfo.exp; // get token expiration dateTime
+                  // console.log(tokenInfo, 'Datatoken');
                   this.saveStorage(tokenInfo.id, resp.data.token, tokenInfo.user, tokenInfo.user.role);
                   return true;
                 }
@@ -109,13 +110,14 @@ export class UserService {
   }
   login(user: User): Observable<any> {
     const url = URL_SERVICIOS + '/auth/login';
-    return this.http.post(url, user).pipe( 
+    return this.http.post(url, user).pipe(
       map( (resp: any) => {
-        console.log(resp);
+        // console.log(resp);
         if (resp.success === true) {
           const tokenInfo = this.getDecodedAccessToken(resp.data.token); // decode token
           const expireDate = tokenInfo.exp; // get token expiration dateTime
-          this.saveStorage(tokenInfo.id, resp.data.token, tokenInfo.user, tokenInfo.user.role);
+          // console.log(tokenInfo, 'Datatoken');
+          this.saveStorage(tokenInfo.user.id, resp.data.token, tokenInfo.user, tokenInfo.user.role);
           return true;
         }
       })
@@ -205,7 +207,7 @@ export class UserService {
                     .map(resp => resp);
   }
   manejarError(err: HttpErrorResponse) {
-    console.warn(err);
+    // console.warn(err);
     this.toasterService.pop('warning', 'Error de Acceso', 'Ha ocurrido un error ');
     return throwError('Error de Servicio');
   }

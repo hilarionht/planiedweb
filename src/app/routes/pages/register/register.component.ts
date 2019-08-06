@@ -40,8 +40,8 @@ export class RegisterComponent implements OnInit {
         }
 
         if (this.valForm.valid) {
-            console.log('Valid!');
-            console.log(value);
+            // console.log('Valid!');
+            // console.log(value);
         }
     }
 

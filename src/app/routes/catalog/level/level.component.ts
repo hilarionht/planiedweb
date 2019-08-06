@@ -42,7 +42,7 @@ export class LevelComponent implements OnInit {
     this.page.numberPage = pageInfo.offset + 1;
     this.page.dir = this.dir;
     this.page.prop = this.prop;
-    console.log(this.page);
+    // console.log(this.page);
     this.levelService.findAll().subscribe((resp: any) => {
         // console.log(resp);
         this.rows = resp.data.entities;
@@ -54,17 +54,17 @@ export class LevelComponent implements OnInit {
   }
   onSubmit($ev) {
     if (this.form.valid) {
-      console.log('form submitted',this.form.value );
+      // console.log('form submitted',this.form.value );
       $ev.preventDefault();
       if (this.form.valid) {
         if (this.form.value.id === '0') {
           this.levelService.save(this.form.value).subscribe((resp: any) => {
-            console.log(resp);
+            // console.log(resp);
             this.list();
           });
         } else {
           this.levelService.save(this.form.value).subscribe((resp: any) => {
-            console.log(resp);
+            // console.log(resp);
             this.list();
           });
         }
@@ -78,13 +78,13 @@ export class LevelComponent implements OnInit {
     if (this.form.valid) {
       if (this.form.value.id === '0') {
         this.levelService.save(this.form.value).subscribe((resp: any) => {
-          console.log(resp);
+          // console.log(resp);
           this.list();
           this.modalService.dismissAll(content);
         });
       } else {
         this.levelService.save(this.form.value).subscribe((resp: any) => {
-          console.log(resp);
+          // console.log(resp);
           this.list();
           this.modalService.dismissAll(content);
         });
@@ -148,7 +148,7 @@ export class LevelComponent implements OnInit {
   list() {
     this.loading = true;
     this.levelService.findAll().subscribe((resp: any) => {
-      console.log(resp);
+      // console.log(resp);
       this.rows = resp.data.entities;
       this.temp = resp.data.entities;
       this.page = resp.data;
